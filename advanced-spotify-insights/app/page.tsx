@@ -3,14 +3,14 @@ import Link from "next/link"
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
+    <div className="min-h-screen flex items-center justify-center bg-zinc-50 dark:bg-black">
+      <main className="flex flex-col items-center text-center gap-10 max-w-2xl px-8 py-16">
         //add image here
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left" >
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            Advanced Spotify Insights
-          </h1> //I should probably come up with a better title
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
+        <div className="w-fullflex flex-col items-center gap-6 text-center sm:items-start sm:text-center" >
+          <h1 className="w-full max-w-xl text-4xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
+            Aquatic Musical Personality Insights
+          </h1>
+          <p className="w-full max-w-xl text-lg leading-8 text-zinc-600 dark:text-zinc-400">
             a playful psychological mirror built from your listening habits. Less what you heard and more who you are when you’re alone with your thoughts.
           </p>
         </div>
