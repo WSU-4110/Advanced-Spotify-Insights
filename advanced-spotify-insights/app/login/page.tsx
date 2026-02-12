@@ -37,7 +37,7 @@ export default function Login() {
                             Password
                         </label>
                         <input
-                            type="text"
+                            type="password"
                             required
                             name="password"
                             className="rounded-lg border border-zinc-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-black dark:border-zinc-700 dark:bg-zinc-800 dark:text-white"
