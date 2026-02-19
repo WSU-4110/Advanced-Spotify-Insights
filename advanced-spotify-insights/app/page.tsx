@@ -19,7 +19,7 @@ export default function Home() {
           <div className="flex flex-col gap-4 text-base items-center justify-center font-medium sm:flex-row">
             <Link
               className="flex h-12 w-40 items-center justify-center gap-2 rounded-sm bg-foreground px-5 text-background text-smtransition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-              href="/login" //this anchor leads nowhere
+              href="/login"
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -27,7 +27,7 @@ export default function Home() {
             </Link>
             <a
               className="flex h-12 text-sm w-40 items-center justify-center rounded-sm border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-              href="" //this anchor leads nowhere
+              href="/feedback" 
               target="_blank"
               rel="noopener noreferrer"
             >
