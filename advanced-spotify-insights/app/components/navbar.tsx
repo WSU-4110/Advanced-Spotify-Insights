@@ -8,7 +8,7 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="sticky top-0 border-b border-gray-800 z-50 w-full">
+    <nav className="sticky top-0 border-b border-gray-800 z-50 w-full bg-black">
       {/* main wrapper*/}
       <div className="mx-auto flex h-16 items-center justify-between px-4 px-6">
         <div className="flex flex-shrink-0 items-center">

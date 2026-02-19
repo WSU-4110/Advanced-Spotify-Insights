@@ -31,7 +31,7 @@ body {
   justify-content: center;
   gap: 50px;
   padding: 50px;
-  height: 100vh;
+  height: auto;
   overflow-y: auto;
 }
 
