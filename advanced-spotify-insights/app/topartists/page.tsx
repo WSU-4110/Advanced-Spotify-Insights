@@ -1,9 +1,10 @@
 "use client";
 
 import ArtistCard from "../components/artistcard";
+import Navbar from "../components/navbar";
 import { Artist } from "../types/artist";
 
-// placeholder, use lastfm api to get these and find their pictures
+// FIXME placeholder, use lastfm api to get these and find their pictures
 const artists: Artist[] = [
     {
         id: "1",
@@ -39,15 +40,41 @@ const artists: Artist[] = [
         id: "7",
         name: "Placeholder",
         image: "https://placehold.co/200"
+    },
+    {
+        id: "8",
+        name: "Placeholder",
+        image: "https://placehold.co/200"
+    },
+    {
+        id: "9",
+        name: "Placeholder",
+        image: "https://placehold.co/200"
+    },
+    {
+        id: "10",
+        name: "Placeholder",
+        image: "https://placehold.co/200"
+    },
+    {
+        id: "11",
+        name: "Placeholder",
+        image: "https://placehold.co/200"
     }
 ];
 
 export default function ArtistsPage() {
     return (
-        <div className="grid-container">
-            {artists.map((artist) => (
-                <ArtistCard key={artist.id} artist={artist} />
-            ))}
+        <div className="topartists-page">
+            <Navbar/>
+            <h1 className="text-2xl font-bold">
+                    Your Top Artists
+                </h1>
+            <div className="grid-container">
+                {artists.map((artist) => (
+                    <ArtistCard key={artist.id} artist={artist} />
+                ))}
+            </div>
         </div>
     )
 }
