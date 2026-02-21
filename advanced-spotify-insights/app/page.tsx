@@ -6,10 +6,14 @@ export default function Home() {
   return (
     <div>
       <Navbar />
-      <div className="min-h-screen flex items-center justify-center bg-zinc-50 dark:bg-black">
+
+      <div className="min-h-screen flex items-center justify-center bg-zinc-50 dark:bg-black"
+          style={{backgroundImage: "url('/AMPI background 1.png')", backgroundSize: 'cover', backgroundPosition: 'center'}}>
         <main className="flex flex-col items-center text-center gap-10 max-w-2xl px-8 py-16">
-          <div className="bg-white p-4 rounded-sm px-10 py-24 w-[400px] min-h-[600px] flex flex-col justify-center">
-            <div className="w-fullflex flex-col items-center gap-6 text-center sm:text-center">
+
+          <div className="bg-white p-4 gap-14 rounded-sm px-10 py-16 w-[400px] min-h-[600px] flex flex-col justify-start">
+
+            <div className="w-full flex flex-col items-center gap-30 text-center sm:text-center">
               <h1 className="w-full max-w-xl text-4xl font-semibold leading-10 tracking-tight text-black dark:text-black">
                 Aquatic Musical Personality Insights
               </h1>
