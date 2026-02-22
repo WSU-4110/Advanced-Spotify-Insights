@@ -14,7 +14,8 @@ export default function Login() {
   return (
     <div>
       <Navbar />
-      <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
+      <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black"
+          style={{backgroundImage: "url('/AMPI background 1.png')", backgroundSize: 'cover', backgroundPosition: 'center'}}>
         <div className="w-full max-w-md rounded-2xl bg-white p-8 shadow-lg dark:bg-zinc-900">
           <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
             Login with Last.fm
