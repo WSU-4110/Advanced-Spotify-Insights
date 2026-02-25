@@ -8,9 +8,11 @@ export default function SongCard({song} : Props) {
   return (
     <div className="song-card">
       <img src={song.image} alt={song.name} />
-      <p>{song.name}</p>
-      <br/>
-      <p>{song.artist}</p>
+      <p>
+        <b>{song.name}</b>
+        <br/>
+        {song.artist}
+        </p>
     </div>
   );
 }
