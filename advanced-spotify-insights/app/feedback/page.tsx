@@ -8,8 +8,6 @@ export default function Feedback() {
       <main className="flex items-center justify-center px-6 py-12 min-h-[calc(100vh-80px)]">
         {/* Feedback Card Container */}
         <div className="bg-white/90 backdrop-blur-md p-8 sm:p-12 rounded-[40px] border-4 border-white shadow-2xl w-full max-w-xl relative overflow-hidden">
-          {/* Subtle decorative background blur */}
-          <div className="absolute -top-6 -right-6 w-32 h-32 bg-cyan-200 rounded-full mix-blend-multiply filter blur-xl opacity-60 pointer-events-none"></div>
 
           <div className="mb-10 text-center relative z-10">
             <h1 className="text-4xl font-extrabold text-cyan-950 tracking-tight drop-shadow-sm mb-3">

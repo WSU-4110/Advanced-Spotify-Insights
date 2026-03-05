@@ -9,9 +9,6 @@ export default function Home() {
       <div className="flex items-center justify-center min-h-[calc(100vh-80px)]">
         <main className="flex flex-col items-center text-center gap-10 max-w-2xl px-6 py-12">
           <div className="bg-white/90 backdrop-blur-md p-8 rounded-[40px] border-4 border-white shadow-2xl w-full sm:w-[420px] min-h-[550px] flex flex-col justify-center relative overflow-hidden">
-            <div className="absolute -top-10 -right-10 w-32 h-32 bg-cyan-200 rounded-full mix-blend-multiply filter blur-xl opacity-70"></div>
-            <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-blue-300 rounded-full mix-blend-multiply filter blur-xl opacity-70"></div>
-
             <div className="w-full flex flex-col items-center gap-6 text-center z-10">
               <h1 className="w-full text-5xl font-extrabold leading-tight tracking-tight text-cyan-950 drop-shadow-sm">
                 Sea Spot

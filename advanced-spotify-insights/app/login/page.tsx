@@ -18,7 +18,6 @@ export default function Login() {
 
       <main className="flex items-center justify-center px-6 py-12 min-h-[calc(100vh-80px)]">
         <div className="bg-white/90 backdrop-blur-md p-8 sm:p-12 rounded-[40px] border-4 border-white shadow-2xl w-full max-w-md relative overflow-hidden">
-          <div className="absolute -bottom-8 -left-8 w-32 h-32 bg-blue-300 rounded-full mix-blend-multiply filter blur-xl opacity-60 pointer-events-none"></div>
 
           <h1 className="text-3xl sm:text-4xl font-extrabold text-cyan-950 tracking-tight drop-shadow-sm mb-8 text-center relative z-10">
             Login with Spotify
