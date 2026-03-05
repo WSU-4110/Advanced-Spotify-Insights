@@ -60,3 +60,29 @@ body {
   text-align: center;
   margin-top: 20px;
 }
+
+.song-card {
+  text-align: center;
+  width: 220px;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.song-card p {
+  margin-top: 10px;
+  margin-bottom: 0;
+  width: 100%;
+}
+
+.song-card img {
+  width: 200px;
+  height: 200px;
+  border-radius: 10%;
+  object-fit: cover;
+}
+
+.recommendedsongs-page h1 {
+  text-align: center;
+  margin-top: 20px;
+}
