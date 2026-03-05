@@ -1,42 +1,35 @@
-import Image from "next/image";
 import Link from "next/link";
 import Navbar from "./components/navbar";
 
 export default function Home() {
   return (
-    <div>
+    <div className="min-h-screen bg-gradient-to-b from-cyan-50 via-sky-200 to-blue-400 font-sans selection:bg-cyan-300">
       <Navbar />
-      <div className="min-h-screen flex items-center justify-center bg-zinc-50 dark:bg-black">
-        <main className="flex flex-col items-center text-center gap-10 max-w-2xl px-8 py-16">
-          <div className="bg-white p-4 rounded-sm px-10 py-24 w-[400px] min-h-[600px] flex flex-col justify-center">
-            <div className="w-fullflex flex-col items-center gap-6 text-center sm:text-center">
-              <h1 className="w-full max-w-xl text-4xl font-semibold leading-10 tracking-tight text-black dark:text-black">
-                Aquatic Musical Personality Insights
+
+      <div className="flex items-center justify-center min-h-[calc(100vh-80px)]">
+        <main className="flex flex-col items-center text-center gap-10 max-w-2xl px-6 py-12">
+          <div className="bg-white/90 backdrop-blur-md p-8 rounded-[40px] border-4 border-white shadow-2xl w-full sm:w-[420px] min-h-[550px] flex flex-col justify-center relative overflow-hidden">
+            <div className="absolute -top-10 -right-10 w-32 h-32 bg-cyan-200 rounded-full mix-blend-multiply filter blur-xl opacity-70"></div>
+            <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-blue-300 rounded-full mix-blend-multiply filter blur-xl opacity-70"></div>
+
+            <div className="w-full flex flex-col items-center gap-6 text-center z-10">
+              <h1 className="w-full text-5xl font-extrabold leading-tight tracking-tight text-cyan-950 drop-shadow-sm">
+                Sea Spot
               </h1>
-              <p className="w-full max-w-xl text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-                a playful psychological mirror built from your listening habits.
+              <p className="w-full text-lg leading-relaxed text-cyan-800 font-medium px-2">
+                A playful psychological mirror built from your listening habits.
                 Less what you heard and more who you are when you’re alone with
                 your thoughts.
               </p>
             </div>
 
-            <div className="flex flex-col gap-4 text-base items-center justify-center font-medium sm:flex-row">
+            <div className="flex flex-col gap-4 items-center justify-center font-bold sm:flex-row w-full mt-10 z-10">
               <Link
-                className="flex h-12 w-40 items-center justify-center gap-2 rounded-sm bg-foreground px-5 text-background text-smtransition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
+                className="flex h-14 w-full sm:w-40 items-center justify-center rounded-full bg-cyan-500 px-6 text-white text-lg transition-all hover:bg-cyan-400 shadow-[0_6px_0_rgb(8,145,178)] hover:shadow-[0_2px_0_rgb(8,145,178)] hover:translate-y-[4px] active:shadow-none active:translate-y-[6px]"
                 href="/login"
-                target="_blank"
-                rel="noopener noreferrer"
               >
-                Start
+                Let's Start!
               </Link>
-              <a
-                className="flex h-12 text-sm w-40 items-center justify-center rounded-sm border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-                href="/feedback"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Learn more
-              </a>
             </div>
           </div>
         </main>
