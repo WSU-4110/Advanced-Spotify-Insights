@@ -3,6 +3,7 @@
 import ArtistCard from "../components/artistcard";
 import Navbar from "../components/navbar";
 import { Artist } from "../types/artist";
+import CardDecorator from "../components/carddecorator";
 
 // FIXME placeholder, use Spotify API to get these and find their pictures
 const artists: Artist[] = [
@@ -44,12 +45,9 @@ export default function ArtistsPage() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10 md:gap-14 justify-items-center w-full max-w-7xl relative z-10 pb-20">
           {artists.map((artist) => (
-            <div
-              key={artist.id}
-              className="transition-transform hover:scale-105 hover:-rotate-1 duration-300 cursor-pointer"
-            >
+            <CardDecorator key={artist.id}>
               <ArtistCard artist={artist} />
-            </div>
+            </CardDecorator>
           ))}
         </div>
       </main>
