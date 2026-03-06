@@ -3,6 +3,26 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+    /* Background tones */
+  --color-bg-ocean: #5E7E95;      /* Deep muted ocean blue */
+  --color-bg-sky: #afc3d4;        /* Soft sky blue */
+  --color-bg-fog: #DCE5EC;        /* Mist overlay tone */
+
+  /* Card */
+  --color-card: #F2F2F2;          /* Soft off-white (warmer than pure white) */
+  --color-card-shadow: rgba(0, 0, 0, 0.08);
+
+  /* Text */
+  --color-text-primary: #1E1E1E;  /* Soft black */
+  --color-text-secondary: #6B7280; /* Muted gray */
+  --color-text-muted: #9CA3AF;    /* Light gray */
+
+  /* Accent */
+  --color-accent: #3A6C8C;        /* Calm ocean accent */
+  --color-accent-hover: #2F5873;  /* Darker ocean for hover */
+
+  /* Subtle highlight */
+  --color-soft-blue: #C8D9E6;
 }
 
 @theme inline {

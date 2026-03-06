@@ -15,13 +15,10 @@ export default function Login() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-cyan-50 via-sky-200 to-blue-400 font-sans selection:bg-cyan-300">
       <Navbar />
-
-      <main className="flex items-center justify-center px-6 py-12 min-h-[calc(100vh-80px)]">
-        <div className="bg-white/90 backdrop-blur-md p-8 sm:p-12 rounded-[40px] border-4 border-white shadow-2xl w-full max-w-md relative overflow-hidden">
-          <div className="absolute -bottom-8 -left-8 w-32 h-32 bg-blue-300 rounded-full mix-blend-multiply filter blur-xl opacity-60 pointer-events-none"></div>
-
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-cyan-950 tracking-tight drop-shadow-sm mb-8 text-center relative z-10">
-            Login with Spotify
+      <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
+        <div className="w-full max-w-md rounded-2xl bg-white p-8 shadow-lg dark:bg-zinc-900">
+          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
+            Login with Last.fm
           </h1>
 
           <form
