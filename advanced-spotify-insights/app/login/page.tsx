@@ -7,7 +7,6 @@ export default function Login() {
     const username = formData.get("username");
     const password = formData.get("password");
 
-    // TODO: Pass username and password to backend
     console.log(username);
     console.log(password);
   }
@@ -15,10 +14,10 @@ export default function Login() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-cyan-50 via-sky-200 to-blue-400 font-sans selection:bg-cyan-300">
       <Navbar />
-      <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
+      <main className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
         <div className="w-full max-w-md rounded-2xl bg-white p-8 shadow-lg dark:bg-zinc-900">
           <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            Login with Last.fm
+            Login with Spotify
           </h1>
 
           <form
