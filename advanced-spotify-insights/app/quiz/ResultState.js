@@ -18,7 +18,7 @@ class ResultState extends QuizState {
   }
 
   restartQuiz(context) {
-    context.restartQuiz();
+    context.resetQuiz();
     context.notify();
   }
 }
