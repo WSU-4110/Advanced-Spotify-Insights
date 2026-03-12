@@ -5,6 +5,7 @@ export default function Navbar() {
     { name: "Home", href: "/" },
     { name: "Top Artists", href: "/topartists" },
     { name: "Recommended", href: "/recommendedsongs" },
+    { name: "Quiz", href: "/quiz" },
     { name: "Feedback", href: "/feedback" },
     { name: "Login", href: "/login" },
   ];
