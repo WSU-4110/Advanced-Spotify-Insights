@@ -4,9 +4,10 @@ export default function Navbar() {
   const navLinks = [
     { name: "Home", href: "/" },
     { name: "Top Artists", href: "/topartists" },
+    { name: "Recent", href: "/recent" },
     { name: "Recommended", href: "/recommendedsongs" },
     { name: "Feedback", href: "/feedback" },
-    { name: "Login", href: "/login" },
+    { name: "Login", href: "/login" }
   ];
 
   return (
