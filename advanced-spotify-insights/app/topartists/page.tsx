@@ -3,27 +3,25 @@
 import ArtistCard from "../components/artistcard";
 import Navbar from "../components/navbar";
 import { Artist } from "../types/artist";
+import { useEffect, useState } from "react";
+import { spotifyService } from "../services/spotifyService";
 
-// FIXME placeholder, use Spotify API to get these and find their pictures
-const artists: Artist[] = [
-  { id: "1", name: "Johnny Music", image: "https://placehold.co/200" },
-  { id: "2", name: "Test Artist", image: "https://placehold.co/200" },
-  { id: "3", name: "Another Test Artist", image: "https://placehold.co/200" },
-  { id: "4", name: "Cool Music McGee", image: "https://placehold.co/200" },
-  { id: "5", name: "Holder of Place", image: "https://placehold.co/200" },
-  {
-    id: "6",
-    name: "Taylor Swift or Something",
-    image: "https://placehold.co/200",
-  },
-  { id: "7", name: "Placeholder", image: "https://placehold.co/200" },
-  { id: "8", name: "Placeholder", image: "https://placehold.co/200" },
-  { id: "9", name: "Placeholder", image: "https://placehold.co/200" },
-  { id: "10", name: "Placeholder", image: "https://placehold.co/200" },
-  { id: "11", name: "Placeholder", image: "https://placehold.co/200" },
-];
 
 export default function ArtistsPage() {
+  const [artists, setArtists] = useState<Artist[]>([]);
+
+    useEffect(() => {
+        const updateArtists = (data: Artist[]) => {
+            setArtists(data)
+        };
+        spotifyService.addObserver("topArtists", updateArtists)
+        spotifyService.fetchTopArtists();
+
+        return () => {
+            spotifyService.removeObserver("topArtists", updateArtists)
+        };
+    }, []);
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-cyan-50 via-sky-200 to-blue-400 font-sans selection:bg-cyan-300">
       <Navbar />

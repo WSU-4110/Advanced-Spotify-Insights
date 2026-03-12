@@ -3,103 +3,24 @@
 import SongCard from "../components/songcard";
 import Navbar from "../components/navbar";
 import { Song } from "../types/song";
-
-// FIXME placeholder, use Spotify API to get these and find their pictures
-const songs: Song[] = [
-  {
-    id: "1",
-    name: "Placeholder Song",
-    artist: "John Doe",
-    album: "Album",
-    image: "https://placehold.co/200",
-  },
-  {
-    id: "2",
-    name: "Placeholder Song",
-    artist: "John Doe",
-    album: "Album",
-    image: "https://placehold.co/200",
-  },
-  {
-    id: "3",
-    name: "Placeholder Song",
-    artist: "John Doe",
-    album: "Album",
-    image: "https://placehold.co/200",
-  },
-  {
-    id: "4",
-    name: "Placeholder Song",
-    artist: "John Doe",
-    album: "Album",
-    image: "https://placehold.co/200",
-  },
-  {
-    id: "5",
-    name: "Placeholder Song",
-    artist: "John Doe",
-    album: "Album",
-    image: "https://placehold.co/200",
-  },
-  {
-    id: "6",
-    name: "Placeholder Song",
-    artist: "John Doe",
-    album: "Album",
-    image: "https://placehold.co/200",
-  },
-  {
-    id: "7",
-    name: "Placeholder Song",
-    artist: "John Doe",
-    album: "Album",
-    image: "https://placehold.co/200",
-  },
-  {
-    id: "8",
-    name: "Placeholder Song",
-    artist: "John Doe",
-    album: "Album",
-    image: "https://placehold.co/200",
-  },
-  {
-    id: "9",
-    name: "Placeholder Song",
-    artist: "John Doe",
-    album: "Album",
-    image: "https://placehold.co/200",
-  },
-  {
-    id: "10",
-    name: "Placeholder Song",
-    artist: "John Doe",
-    album: "Album",
-    image: "https://placehold.co/200",
-  },
-  {
-    id: "11",
-    name: "Placeholder Song",
-    artist: "John Doe",
-    album: "Album",
-    image: "https://placehold.co/200",
-  },
-  {
-    id: "12",
-    name: "Placeholder Song",
-    artist: "John Doe",
-    album: "Album",
-    image: "https://placehold.co/200",
-  },
-  {
-    id: "13",
-    name: "Placeholder Song",
-    artist: "John Doe",
-    album: "Album",
-    image: "https://placehold.co/200",
-  },
-];
+import { useEffect, useState } from "react";
+import { spotifyService } from "../services/spotifyService";
 
 export default function SongsPage() {
+   const [songs, setSongs] = useState<Song[]>([]);
+
+        useEffect(() => {
+            const updateSongs = (data: Song[]) => {
+                setSongs(data)
+            };
+            spotifyService.addObserver("recommendedSongs", updateSongs)
+            spotifyService.fetchRecommendedSongs();
+
+            return () => {
+                spotifyService.removeObserver("recommendedSongs", updateSongs)
+            };
+        }, []);
+        
   return (
     <div className="min-h-screen bg-gradient-to-b from-cyan-50 via-sky-200 to-blue-400 font-sans selection:bg-cyan-300">
       <Navbar />
