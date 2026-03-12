@@ -1,10 +1,10 @@
 import Link from "next/link";
-import Navbar from "./components/navbar";
+
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-cyan-50 via-sky-200 to-blue-400 font-sans selection:bg-cyan-300">
-      <Navbar />
+      
 
       <div className="flex items-center justify-center min-h-[calc(100vh-80px)]">
         <main className="flex flex-col items-center text-center gap-10 max-w-2xl px-6 py-12">

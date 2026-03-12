@@ -1,9 +1,9 @@
-import Navbar from "../components/navbar";
+
 
 export default function Feedback() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-cyan-50 via-sky-200 to-blue-400 font-sans selection:bg-cyan-300">
-      <Navbar />
+      
 
       <main className="flex items-center justify-center px-6 py-12 min-h-[calc(100vh-80px)]">
         {/* Feedback Card Container */}
