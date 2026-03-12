@@ -10,9 +10,13 @@ export default function QuizPage() {
   const contextRef = useRef<any>(null);
 
   useEffect(() => {
-    const context = new QuizContext(questions, resultOptions, (updatedState: any) => {
-      setQuizState(updatedState);
-    });
+    const context = new QuizContext(
+      questions,
+      resultOptions,
+      (updatedState: any) => {
+        setQuizState(updatedState);
+      },
+    );
 
     contextRef.current = context;
     context.notify(); // initialize UI
@@ -29,7 +33,8 @@ export default function QuizPage() {
     );
   }
 
-  const { screen, question, result, resultData, currentQuestionIndex } = quizState;
+  const { screen, question, result, resultData, currentQuestionIndex } =
+    quizState;
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-cyan-50 via-sky-200 to-blue-400 font-sans selection:bg-cyan-300">
@@ -72,15 +77,19 @@ export default function QuizPage() {
                 </div>
 
                 <div className="flex flex-col gap-3">
-                  {Object.entries(question.answers).map(([answerKey, answer]: any) => (
-                    <button
-                      key={answerKey}
-                      onClick={() => contextRef.current.selectAnswer(answerKey)}
-                      className="px-6 py-4 bg-cyan-100/70 border-2 border-cyan-300 rounded-2xl text-left font-semibold text-cyan-900 transition-all hover:bg-cyan-200 hover:border-cyan-400 hover:shadow-md active:scale-95"
-                    >
-                      {answer.text}
-                    </button>
-                  ))}
+                  {Object.entries(question.answers).map(
+                    ([answerKey, answer]: any) => (
+                      <button
+                        key={answerKey}
+                        onClick={() =>
+                          contextRef.current.selectAnswer(answerKey)
+                        }
+                        className="px-6 py-4 bg-cyan-100/70 border-2 border-cyan-300 rounded-2xl text-left font-semibold text-cyan-900 transition-all hover:bg-cyan-200 hover:border-cyan-400 hover:shadow-md active:scale-95"
+                      >
+                        {answer.text}
+                      </button>
+                    ),
+                  )}
                 </div>
               </div>
             </div>
