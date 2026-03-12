@@ -1,4 +1,5 @@
 import QuizState from "./QuizState";
+import ResultState from "./ResultState";
 
 class QuestionState extends QuizState {
   enter(context) {
@@ -23,7 +24,7 @@ class QuestionState extends QuizState {
     //add mbti scores
 
     if (selectedAnswer.scores) {
-      for (const dimesnsion in selectedAnswer.scores) {
+      for (const dimension in selectedAnswer.scores) {
         context.userAnswers[dimension] = (context.userAnswers[dimension] || 0 ) + selectedAnswer.scores[dimension];
       }
     }
@@ -32,13 +33,13 @@ class QuestionState extends QuizState {
       context.currentQuestionIndex++;
       context.notify();
     } else {
-      context.culculateResult();
+      context.calculateResult();
       context.setState(new ResultState());
     }
   }
 
   restartQuiz(context) {
-    context.restartQuiz();
+    context.resetQuiz();
     context.notify();
   }
 }
