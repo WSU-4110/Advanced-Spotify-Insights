@@ -1,8 +1,7 @@
-// pages/api/auth/[...nextauth].js (or app/api/auth/[...nextauth]/route.js)
-import NextAuth from "nextauth";
+import NextAuth from "next-auth"; // <-- Fixed the hyphen here!
 import SpotifyProvider from "next-auth/providers/spotify";
 
-export default NextAuth({
+const handler = NextAuth({
   providers: [
     SpotifyProvider({
       clientId: process.env.SPOTIFY_CLIENT_ID,
@@ -15,16 +14,17 @@ export default NextAuth({
   },
   callbacks: {
     async jwt({ token, account }) {
-      // Persist the Spotify access token to the token right after sign in
       if (account) {
         token.accessToken = account.access_token;
       }
       return token;
     },
     async session({ session, token }) {
-      // Send the access token to the client so you can make Spotify API calls
       session.accessToken = token.accessToken;
       return session;
     },
   },
 });
+
+// The App Router requires you to export the handler as GET and POST
+export { handler as GET, handler as POST };
