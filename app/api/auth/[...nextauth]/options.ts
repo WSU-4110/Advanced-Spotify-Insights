@@ -8,6 +8,9 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.SPOTIFY_CLIENT_SECRET!,
     }),
   ],
+  pages: {
+    signIn: "/login",
+  },
   session: {
     // This enforces database-less, cookie-based sessions
     strategy: "jwt",

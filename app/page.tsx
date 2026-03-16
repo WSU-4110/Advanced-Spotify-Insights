@@ -1,7 +1,11 @@
 import Link from "next/link";
 import Navbar from "./components/navbar";
+import { getServerSession } from "next-auth";
+import { authOptions } from "./api/auth/[...nextauth]/options";
 
-export default function Home() {
+export default async function Home() {
+  const session = await getServerSession(authOptions);
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-cyan-50 via-sky-200 to-blue-400 font-sans selection:bg-cyan-300">
       <Navbar />
@@ -23,7 +27,7 @@ export default function Home() {
             <div className="flex flex-col gap-4 items-center justify-center font-bold sm:flex-row w-full mt-10 z-10">
               <Link
                 className="flex h-14 w-full sm:w-40 items-center justify-center rounded-full bg-cyan-500 px-6 text-white text-lg transition-all hover:bg-cyan-400 shadow-[0_6px_0_rgb(8,145,178)] hover:shadow-[0_2px_0_rgb(8,145,178)] hover:translate-y-[4px] active:shadow-none active:translate-y-[6px]"
-                href="/login"
+                href={session ? "/quiz" : "/login"}
               >
                 Let's Start!
               </Link>
