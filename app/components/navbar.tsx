@@ -1,4 +1,5 @@
 import Link from "next/link";
+import UserNav from "./UserNav";
 
 export default function Navbar() {
   const navLinks = [
@@ -7,7 +8,6 @@ export default function Navbar() {
     { name: "Recommended", href: "/recommendedsongs" },
     { name: "Quiz", href: "/quiz" },
     { name: "Feedback", href: "/feedback" },
-    { name: "Login", href: "/login" },
   ];
 
   return (
@@ -25,7 +25,7 @@ export default function Navbar() {
         </div>
 
         {/* nav links wrapper - Added flex-wrap for smaller screens */}
-        <div className="flex flex-wrap items-baseline gap-1 sm:gap-2 justify-end">
+        <div className="flex flex-wrap items-center gap-1 sm:gap-2 justify-end">
           {navLinks.map((link) => (
             <Link
               key={link.name}
@@ -35,6 +35,7 @@ export default function Navbar() {
               {link.name}
             </Link>
           ))}
+          <UserNav />
         </div>
       </div>
     </nav>
