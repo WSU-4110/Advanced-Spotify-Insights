@@ -12,7 +12,7 @@ export const authOptions: NextAuthOptions = {
     signIn: "/login",
   },
   session: {
-    // This enforces database-less, cookie-based sessions
+    // cookie-based sessions
     strategy: "jwt",
   },
   callbacks: {
@@ -23,7 +23,7 @@ export const authOptions: NextAuthOptions = {
       return token;
     },
     async session({ session, token }) {
-      session.accessToken = token.accessToken as string; // Cast because TS doesn't know about accessToken on token yet (would need module augmentation)
+      session.accessToken = token.accessToken as string; 
       return session;
     },
   },
