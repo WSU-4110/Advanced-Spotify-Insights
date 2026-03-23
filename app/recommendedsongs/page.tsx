@@ -106,8 +106,8 @@ export default function SongsPage() {
 
       <main className="flex flex-col items-center justify-start px-6 py-12 min-h-[calc(100vh-80px)] relative overflow-hidden">
         {/* Decorative Sea Bubbles/Blurs in the background */}
-        <div className="absolute top-20 left-10 w-40 h-40 bg-blue-300 rounded-full mix-blend-multiply filter blur-2xl opacity-50 pointer-events-none"></div>
-        <div className="absolute top-60 right-20 w-32 h-32 bg-cyan-200 rounded-full mix-blend-multiply filter blur-2xl opacity-60 pointer-events-none"></div>
+        <div className="absolute top-20 left-10 w-40 h-40 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-50 pointer-events-none"></div>
+        <div className="absolute top-60 right-20 w-32 h-32 bg-cyan-200 rounded-full mix-blend-multiply filter blur-3xl opacity-60 pointer-events-none"></div>
 
         <div className="text-center relative z-10 mb-12">
           <h1 className="text-4xl md:text-5xl font-extrabold text-cyan-950 tracking-tight drop-shadow-sm mb-4">

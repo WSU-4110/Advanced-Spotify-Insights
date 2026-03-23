@@ -12,11 +12,11 @@ export default function SharePage() {
 
       <main className="flex min-h-[calc(100vh-80px)] items-center justify-center px-6 py-12">
         <div className="w-full max-w-2xl rounded-[40px] border-4 border-white bg-white/90 p-8 shadow-2xl backdrop-blur-md">
-          <h1 className="text-3xl font-extrabold text-cyan-950">
+          <h1 className="text-3xl font-extrabold text-cyan-950 tracking-tight drop-shadow-sm">
             Share Your Result
           </h1>
 
-          <p className="mt-3 text-cyan-800">
+          <p className="mt-3 text-lg text-cyan-800 font-medium">
             Share your Sea Spot music insight with your friends.
           </p>
 
