@@ -29,11 +29,7 @@ export default function SharePage() {
           </div>
 
           <div className="mt-8">
-            <ShareButtons
-              url={shareUrl}
-              title={shareTitle}
-              text={shareText}
-            />
+            <ShareButtons url={shareUrl} title={shareTitle} text={shareText} />
           </div>
         </div>
       </main>

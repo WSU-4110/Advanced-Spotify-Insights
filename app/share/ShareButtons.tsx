@@ -29,7 +29,7 @@ export default function ShareButtons({ url, title, text }: Props) {
   const xShareUrl = `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedText}`;
   const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`;
   const whatsappShareUrl = `https://wa.me/?text=${encodeURIComponent(
-    `${text} ${url}`
+    `${text} ${url}`,
   )}`;
 
   return (
