@@ -16,6 +16,10 @@
 # next.js
 /.next/
 /out/
+.next/
+node_modules/
+advanced-spotify-insights/.next/
+advanced-spotify-insights/node_modules/
 
 # production
 /build
