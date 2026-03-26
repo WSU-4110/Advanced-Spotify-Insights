@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import QuizContext from "../QuizContext";
 
 describe("QuizContext", () => {
@@ -42,4 +42,33 @@ describe("QuizContext", () => {
 
     expect(context.getCurrentQuestion()).toEqual({ question: "Q2" });
   });
+
+  it("startQuiz calls current state's startQuiz method", () => {
+  const mockState = {
+    startQuiz: vi.fn(),
+    enter: vi.fn()
+  };
+
+  const context = new QuizContext([], {}, null);
+
+  context.setState(mockState);
+  context.startQuiz();
+
+  expect(mockState.startQuiz).toHaveBeenCalledWith(context);
+    });
+
+    it("setState updates state and calls enter", () => {
+  const mockState = {
+    enter: vi.fn()
+  };
+
+  const onChange = vi.fn();
+  const context = new QuizContext([], {}, onChange);
+
+  context.setState(mockState);
+
+  expect(context.currentState).toBe(mockState);
+  expect(mockState.enter).toHaveBeenCalledWith(context);
+});
+
 });
