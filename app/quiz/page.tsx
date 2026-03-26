@@ -69,7 +69,7 @@ export default function QuizPage() {
               <div className="relative z-10">
                 <div className="mb-6 text-center">
                   <h2 className="text-sm font-semibold text-cyan-600 mb-2">
-                    Question {currentQuestionIndex + 1}
+                    Question {(quizState.currentQuestionIndex ?? 0) + 1} of {quizState.totalQuestions ?? 0}
                   </h2>
                   <h1 className="text-3xl font-extrabold text-cyan-950 drop-shadow-sm leading-tight">
                     {question.question}
@@ -99,14 +99,15 @@ export default function QuizPage() {
             <div className="bg-white/90 backdrop-blur-md p-8 rounded-[40px] border-4 border-white shadow-2xl w-full sm:w-[500px] flex flex-col items-center relative overflow-hidden">
               <div className="relative z-10 w-full flex flex-col items-center">
                 <h1 className="text-4xl font-extrabold text-cyan-950 drop-shadow-sm mb-6 text-center">
-                  Your Type: {result}
+                  Your Result: {quizState.result.type}
                 </h1>
 
                 {resultData?.image && (
                   <img
-                    src={resultData.image}
-                    alt={result}
-                    className="w-48 h-auto mb-6 rounded-2xl"
+                    src={quizState.result.image}
+                    alt={quizState.result.type}
+                    width={500}
+                    height={500}
                   />
                 )}
 

@@ -329,6 +329,7 @@ export const resultOptions = {
   ENTJ: { image: "/Final Screen Images/ENTJ - Swordfish Final Image.png" },
   ENTP: { image: "/Final Screen Images/ENTP - Dolphin Final Image.png" },
   ESFP: { image: "/Final Screen Images/ESFP - Clownfish Final Image.png" },
+  ESFJ: { image: "/Final Screen Images/ESFJ - Manatee Final Image.png" },
   ESTJ: { image: "/Final Screen Images/ESTJ - Tuna Final Image.png" },
   ESTP: { image: "/Final Screen Images/ESTP - Orca Final Image.png" },
   INFJ: { image: "/Final Screen Images/INFJ - Sea Turtle Final Image.png" },

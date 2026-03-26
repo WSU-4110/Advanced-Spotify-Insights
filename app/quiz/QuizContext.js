@@ -5,9 +5,18 @@ class QuizContext {
     this.currentState = null;
     this.currentQuestionIndex = 0;
     this.questions = questions;
-    this.userAnswers = {}; // score tracker, like a dictionary
+    this.userAnswers = {
+      I: 0,
+      E: 0,
+      N: 0,
+      S: 0,
+      T: 0,
+      F: 0,
+      J: 0,
+      P: 0,
+    };
     this.resultOptions = resultOptions;
-    this.result = "";
+    this.result = null;
     this.screen = "start";
     this.onChange = onChange;
 
@@ -40,28 +49,16 @@ class QuizContext {
   }
 
   calculateResult() {
-    const pairs = [
-      ["I", "E"],
-      ["S", "N"],
-      ["T", "F"],
-      ["J", "P"],
-    ];
+    const type =
+      ((this.userAnswers.I || 0) >= (this.userAnswers.E || 0) ? "I" : "E") +
+      ((this.userAnswers.S || 0) >= (this.userAnswers.N || 0) ? "S" : "N") +
+      ((this.userAnswers.T || 0) >= (this.userAnswers.F || 0) ? "T" : "F") +
+      ((this.userAnswers.J || 0) >= (this.userAnswers.P || 0) ? "J" : "P");
 
-    let result = "";
-
-    for (const [first, second] of pairs) {
-      const firstScore = this.userAnswers[first] || 0;
-      const secondScore = this.userAnswers[second] || 0;
-
-      if (firstScore >= secondScore) {
-        result += first;
-      } else {
-        result += second;
-      }
-    }
-
-    this.result = result;
-    return result;
+    this.result = {
+      type,
+      ...this.resultOptions[type],
+    };
   }
 
   resetQuiz() {
@@ -80,18 +77,20 @@ class QuizContext {
     this.screen = "start";
   }
 
-  notify() {
-    if (this.onChange) {
-      this.onChange({
-        screen: this.screen,
-        question: this.getCurrentQuestion(),
-        currentQuestion: this.getCurrentQuestion(),
-        userAnswers: this.userAnswers,
-        result: this.result,
-        resultData: this.resultOptions[this.result] || null,
-      });
-    }
+notify() {
+  if (this.onChange) {
+    this.onChange({
+      screen: this.screen,
+      currentQuestionIndex: this.currentQuestionIndex,
+      totalQuestions: this.questions.length,
+      question: this.getCurrentQuestion(),
+      currentQuestion: this.getCurrentQuestion(),
+      userAnswers: this.userAnswers,
+      result: this.result,
+      resultData: this.result,
+    });
   }
+}
 }
 
 export default QuizContext;
