@@ -45,7 +45,7 @@ class QuizContext {
   }
 
   getCurrentQuestion() {
-    return this.questions[this.currentQuestionIndex];
+  return this.questions[this.currentQuestionIndex];
   }
 
   calculateResult() {
@@ -59,6 +59,7 @@ class QuizContext {
       type,
       ...this.resultOptions[type],
     };
+    return this.result;
   }
 
   resetQuiz() {
