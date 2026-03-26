@@ -1,11 +1,9 @@
 import QuizState from "./QuizState";
+import StartState from "./StartState";
 
 class ResultState extends QuizState {
   enter(context) {
-    context.restartQuiz();
-
     context.screen = "result";
-
     context.notify();
   }
 
@@ -19,7 +17,7 @@ class ResultState extends QuizState {
 
   restartQuiz(context) {
     context.resetQuiz();
-    context.notify();
+    context.setState(new StartState());
   }
 }
 

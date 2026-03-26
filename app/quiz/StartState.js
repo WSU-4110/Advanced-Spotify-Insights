@@ -3,7 +3,7 @@ import QuestionState from "./QuestionState";
 
 class StartState extends QuizState {
   enter(context) {
-    context.restartQuiz();
+    context.resetQuiz();
 
     context.screen = "start";
 

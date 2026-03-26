@@ -324,6 +324,20 @@ export const questions = [
 ];
 
 export const resultOptions = {
-  INFP: { image: "" },
-  ENTP: { image: "" },
+  ENFJ: { image: "/Final Screen Images/ENFJ - Blue Whale Final Image.png" },
+  ENFP: { image: "/Final Screen Images/ENFP - Otter Final Image.png" },
+  ENTJ: { image: "/Final Screen Images/ENTJ - Swordfish Final Image.png" },
+  ENTP: { image: "/Final Screen Images/ENTP - Dolphin Final Image.png" },
+  ESFP: { image: "/Final Screen Images/ESFP - Clownfish Final Image.png" },
+  ESFJ: { image: "/Final Screen Images/ESFJ - Manatee Final Image.png" },
+  ESTJ: { image: "/Final Screen Images/ESTJ - Tuna Final Image.png" },
+  ESTP: { image: "/Final Screen Images/ESTP - Orca Final Image.png" },
+  INFJ: { image: "/Final Screen Images/INFJ - Sea Turtle Final Image.png" },
+  INFP: { image: "/Final Screen Images/INFP - Sunfish Final Image.png" },
+  INTJ: { image: "/Final Screen Images/INTJ - Beaver Final Image.png" },
+  INTP: { image: "/Final Screen Images/INTP - Octopus Final Image.png" },
+  ISFJ: { image: "/Final Screen Images/ISFJ - Seal Final Image.png" },
+  ISFP: { image: "/Final Screen Images/ISFP - Jellyfish Final Image.png" },
+  ISTJ: { image: "/Final Screen Images/ISTJ - Sea Urchin Final Image.png" },
+  ISTP: { image: "/Final Screen Images/ISTP - Sea Anemone Final Image.png" },
 };
