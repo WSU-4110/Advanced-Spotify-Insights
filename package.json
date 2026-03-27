@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "vitest"
+    "test": "vitest run"
   },
   "dependencies": {
     "better-auth": "^1.5.6",
