@@ -16,7 +16,7 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="sticky top-0 z-50 w-full bg-white/70 backdrop-blur-md border-b-4 border-white shadow-sm">
+    <nav className="sticky top-0 z-50 w-full bg-white/70 backdrop-blur-md shadow-sm">
       <div className="mx-auto flex h-20 items-center justify-between px-6 md:px-12 max-w-7xl">
         <div className="flex flex-shrink-0 items-center">
           <Link

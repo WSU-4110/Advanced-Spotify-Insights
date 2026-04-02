@@ -106,3 +106,11 @@ body {
   text-align: center;
   margin-top: 20px;
 }
+
+.bg-custom {
+  background-image: url('/AMPI background 1.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed; /* 🔥 THIS is the key */
+}

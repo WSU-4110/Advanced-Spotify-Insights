@@ -3,7 +3,7 @@ import Navbar from "./components/navbar";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-cyan-50 via-sky-200 to-blue-400 font-sans selection:bg-cyan-300">
+    <div className="min-h-screen bg-custom font-sans selection:bg-cyan-300">
       <Navbar />
 
       <div className="flex items-center justify-center min-h-[calc(100vh-80px)]">
@@ -15,7 +15,7 @@ export default function Home() {
               </h1>
               <p className="w-full text-lg leading-relaxed text-cyan-800 font-medium px-2">
                 A playful psychological mirror built from your listening habits.
-                Less what you heard and more who you are when you’re alone with
+                Less so what you've heard and more who you are when you’re alone with
                 your thoughts.
               </p>
             </div>

@@ -24,7 +24,7 @@ export default function QuizPage() {
 
   if (!quizState) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-cyan-50 via-sky-200 to-blue-400 font-sans selection:bg-cyan-300">
+      <div className="min-h-screen bg-custom font-sans selection:bg-cyan-300">
         <Navbar />
         <div className="flex items-center justify-center min-h-[calc(100vh-80px)]">
           <p className="text-cyan-950 font-semibold">Loading quiz...</p>
@@ -37,7 +37,7 @@ export default function QuizPage() {
     quizState;
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-cyan-50 via-sky-200 to-blue-400 font-sans selection:bg-cyan-300">
+    <div className="min-h-screen bg-custom font-sans selection:bg-cyan-300">
       <Navbar />
 
       <div className="flex items-center justify-center min-h-[calc(100vh-80px)]">
