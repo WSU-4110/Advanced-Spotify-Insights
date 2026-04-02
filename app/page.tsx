@@ -15,7 +15,7 @@ export default function Home() {
               </h1>
               <p className="w-full text-lg leading-relaxed text-cyan-800 font-medium px-2">
                 A playful psychological mirror built from your listening habits.
-                Less what you heard and more who you are when you’re alone with
+                Less so what you've heard and more who you are when you’re alone with
                 your thoughts.
               </p>
             </div>

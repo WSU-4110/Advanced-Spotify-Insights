@@ -101,7 +101,7 @@ export const questions = [
     question: "When talking to someone kind of important do you:",
     answers: {
       E: {
-        text: "Rearely wuestion what is going to be said",
+        text: "Rarely question what is going to be said",
         scores: { E: 1, I: 0 },
       },
       I: {
@@ -119,7 +119,7 @@ export const questions = [
         scores: { S: 1, N: 0 },
       },
       N: {
-        text: "Illustrate ptinciples",
+        text: "Illustrate principles",
         scores: { S: 0, N: 1 },
       },
     },
