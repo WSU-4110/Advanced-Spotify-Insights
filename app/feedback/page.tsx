@@ -31,7 +31,7 @@ export default function Feedback() {
                 type="text"
                 id="name"
                 placeholder="Enter your name"
-                className="w-full rounded-2xl border-2 border-cyan-200 bg-white/60 px-4 py-3 text-cyan-950 placeholder-cyan-400/80 focus:bg-white focus:border-cyan-400 focus:outline-none transition-all shadow-sm"
+                className="w-full rounded-2xl border-2 border-cyan-950 bg-white/60 px-4 py-3 text-cyan-950 placeholder-cyan-950 focus:bg-white focus:border-cyan-400 focus:outline-none transition-all shadow-sm"
               />
             </div>
 
@@ -47,7 +47,7 @@ export default function Feedback() {
                 id="message"
                 rows={5}
                 placeholder="Tell us your thoughts..."
-                className="w-full rounded-2xl border-2 border-cyan-200 bg-white/60 px-4 py-3 text-cyan-950 placeholder-cyan-400/80 focus:bg-white focus:border-cyan-400 focus:outline-none transition-all shadow-sm resize-none"
+                className="w-full rounded-2xl border-2 border-cyan-950 bg-white/60 px-4 py-3 text-black placeholder-cyan-950 focus:bg-white focus:border-cyan-400 focus:outline-none transition-all shadow-sm resize-none"
               />
             </div>
 
