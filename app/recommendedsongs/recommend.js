@@ -36,14 +36,18 @@ export async function getMbtiRecommendations(mbtiType, accessToken) {
     accessToken,
   );
   const userGenres = [
-    ...new Set(artistsData?.items?.flatMap((a) => a.genres) || []),
+    ...new Set(
+      (artistsData?.items?.flatMap((a) => a.genres ?? []) || []).filter(
+        Boolean,
+      ),
+    ),
   ];
 
   // Mix user genres with MBTI
   const extraGenres = userGenres
-    .filter((g) => !mbtiGenres.includes(g))
+    .filter((g) => !mbtiGenres.includes(g)) // filter genres already in mbti 
     .slice(0, 2);
-  const searchList = [...mbtiGenres, ...extraGenres];
+  const searchList = [...mbtiGenres, ...extraGenres]; // combine new genres
 
   // Search all genres
   const searchPromises = searchList.map((genre) => {
