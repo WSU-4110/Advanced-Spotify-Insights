@@ -1,30 +1,72 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import ArtistCard from "../components/artistcard";
 import Navbar from "../components/navbar";
 import { Artist } from "../types/artist";
+import { authClient } from "@/app/lib/auth-client";
 
-// FIXME placeholder, use Spotify API to get these and find their pictures
-const artists: Artist[] = [
-  { id: "1", name: "Johnny Music", image: "https://placehold.co/200" },
-  { id: "2", name: "Test Artist", image: "https://placehold.co/200" },
-  { id: "3", name: "Another Test Artist", image: "https://placehold.co/200" },
-  { id: "4", name: "Cool Music McGee", image: "https://placehold.co/200" },
-  { id: "5", name: "Holder of Place", image: "https://placehold.co/200" },
-  {
-    id: "6",
-    name: "Taylor Swift or Something",
-    image: "https://placehold.co/200",
-  },
-  { id: "7", name: "Placeholder", image: "https://placehold.co/200" },
-  { id: "8", name: "Placeholder", image: "https://placehold.co/200" },
-  { id: "9", name: "Placeholder", image: "https://placehold.co/200" },
-  { id: "10", name: "Placeholder", image: "https://placehold.co/200" },
-  { id: "11", name: "Placeholder", image: "https://placehold.co/200" },
-];
+const apiValues = {
+  tr: "short_term", // long_term (1 year), medium_term (6 months), short_term (4 weeks)
+  limit: "21", // number of artist to get
+  offset: "0", // index of first item to get (number to skip)
+};
 
 export default function ArtistsPage() {
+  // Initialize state for artists and loading
+  const [artists, setArtists] = useState<Artist[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        setIsLoading(true);
+
+        // Get the Access Token from Better Auth
+        const { data: tokenData, error: tokenError } =
+          await authClient.getAccessToken({
+            providerId: "spotify",
+          });
+
+        if (tokenError || !tokenData?.accessToken) {
+          throw new Error("Could not retrieve Spotify access token.");
+        }
+
+        // Fetch Top Artists from Spotify
+        const response = await fetch(
+          `https://api.spotify.com/v1/me/top/artists?time_range=${apiValues.tr}&limit=${apiValues.limit}&offset=${apiValues.offset}`,
+          {
+            headers: {
+              Authorization: `Bearer ${tokenData.accessToken}`,
+            },
+          },
+        );
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch top artists from Spotify");
+        }
+
+        const data = await response.json();
+
+        const mappedArtists: Artist[] = data.items.map((item: any) => ({
+          id: item.id,
+          name: item.name,
+          image: item.images[0]?.url || "https://placehold.co/200", // Fallback if no image
+        }));
+
+        setArtists(mappedArtists);
+      } catch (err: any) {
+        setError(err.message);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    fetchData();
+  }, []);
+
   return (
     <div className="min-h-screen bg-custom font-sans selection:bg-cyan-300">
       <Navbar />
@@ -51,16 +93,24 @@ export default function ArtistsPage() {
           </div>
         </div>
 
-        <div className="relative z-10 grid w-full max-w-7xl grid-cols-1 justify-items-center gap-10 pb-20 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:gap-14">
-          {artists.map((artist) => (
-            <div
-              key={artist.id}
-              className="cursor-pointer transition-transform duration-300 hover:scale-105 hover:-rotate-1"
-            >
-              <ArtistCard artist={artist} />
-            </div>
-          ))}
-        </div>
+        {isLoading ? (
+          <div className="text-cyan-900 font-bold animate-pulse">
+            Loading your vibes...
+          </div>
+        ) : error ? (
+          <div className="text-red-500 font-bold">{error}</div>
+        ) : (
+          <div className="relative z-10 grid w-full max-w-7xl grid-cols-1 justify-items-center gap-10 pb-20 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:gap-14">
+            {artists.map((artist) => (
+              <div
+                key={artist.id}
+                className="cursor-pointer transition-transform duration-300 hover:scale-105 hover:-rotate-1"
+              >
+                <ArtistCard artist={artist} />
+              </div>
+            ))}
+          </div>
+        )}
       </main>
     </div>
   );
