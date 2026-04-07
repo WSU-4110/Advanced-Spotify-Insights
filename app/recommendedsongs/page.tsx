@@ -1,111 +1,72 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import SongCard from "../components/songcard";
 import Navbar from "../components/navbar";
 import { Song } from "../types/song";
-
-// FIXME placeholder, use Spotify API to get these and find their pictures
-const songs: Song[] = [
-  {
-    id: "1",
-    name: "Placeholder Song",
-    artist: "John Doe",
-    album: "Album",
-    image: "https://placehold.co/200",
-  },
-  {
-    id: "2",
-    name: "Placeholder Song",
-    artist: "John Doe",
-    album: "Album",
-    image: "https://placehold.co/200",
-  },
-  {
-    id: "3",
-    name: "Placeholder Song",
-    artist: "John Doe",
-    album: "Album",
-    image: "https://placehold.co/200",
-  },
-  {
-    id: "4",
-    name: "Placeholder Song",
-    artist: "John Doe",
-    album: "Album",
-    image: "https://placehold.co/200",
-  },
-  {
-    id: "5",
-    name: "Placeholder Song",
-    artist: "John Doe",
-    album: "Album",
-    image: "https://placehold.co/200",
-  },
-  {
-    id: "6",
-    name: "Placeholder Song",
-    artist: "John Doe",
-    album: "Album",
-    image: "https://placehold.co/200",
-  },
-  {
-    id: "7",
-    name: "Placeholder Song",
-    artist: "John Doe",
-    album: "Album",
-    image: "https://placehold.co/200",
-  },
-  {
-    id: "8",
-    name: "Placeholder Song",
-    artist: "John Doe",
-    album: "Album",
-    image: "https://placehold.co/200",
-  },
-  {
-    id: "9",
-    name: "Placeholder Song",
-    artist: "John Doe",
-    album: "Album",
-    image: "https://placehold.co/200",
-  },
-  {
-    id: "10",
-    name: "Placeholder Song",
-    artist: "John Doe",
-    album: "Album",
-    image: "https://placehold.co/200",
-  },
-  {
-    id: "11",
-    name: "Placeholder Song",
-    artist: "John Doe",
-    album: "Album",
-    image: "https://placehold.co/200",
-  },
-  {
-    id: "12",
-    name: "Placeholder Song",
-    artist: "John Doe",
-    album: "Album",
-    image: "https://placehold.co/200",
-  },
-  {
-    id: "13",
-    name: "Placeholder Song",
-    artist: "John Doe",
-    album: "Album",
-    image: "https://placehold.co/200",
-  },
-];
+import { authClient } from "@/app/lib/auth-client";
+import { getMbtiRecommendations } from "@/app/recommendedsongs/recommend";
+import Link from "next/link";
 
 export default function SongsPage() {
+  const [songs, setSongs] = useState<Song[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        setIsLoading(true);
+
+        // Get quiz result from localStorage
+        const quizResult = JSON.parse(
+          localStorage.getItem("quizResult") || "null",
+        );
+        if (!quizResult?.type) {
+          throw new Error("No quiz result found. Take the quiz first!");
+        }
+
+        // Get the Access Token from Better Auth
+        const { data: tokenData, error: tokenError } =
+          await authClient.getAccessToken({
+            providerId: "spotify",
+          });
+
+        if (tokenError || !tokenData?.accessToken) {
+          throw new Error("Could not retrieve Spotify access token.");
+        }
+
+        // Fetch recommendations based on MBTI type
+        const tracks = await getMbtiRecommendations(
+          quizResult.type,
+          tokenData.accessToken,
+        );
+
+        const mappedSongs: Song[] = tracks.map((track: any) => ({
+          id: track.id,
+          name: track.name,
+          artist: track.artists.map((a: any) => a.name).join(", "),
+          album: track.album.name,
+          image: track.album.images?.[0]?.url || "https://placehold.co/200",
+          url: track.external_urls.spotify,
+        }));
+
+        setSongs(mappedSongs);
+      } catch (err: any) {
+        setError(err.message);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    fetchData();
+  }, []);
+
   return (
     <div className="min-h-screen bg-custom font-sans selection:bg-cyan-300">
       <Navbar />
 
       <main className="flex flex-col items-center justify-start px-6 py-12 min-h-[calc(100vh-80px)] relative overflow-hidden">
-        {/* Decorative Sea Bubbles/Blurs in the background */}
         <div className="absolute top-20 left-10 w-40 h-40 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-50 pointer-events-none"></div>
         <div className="absolute top-60 right-20 w-32 h-32 bg-cyan-200 rounded-full mix-blend-multiply filter blur-3xl opacity-60 pointer-events-none"></div>
 
@@ -118,16 +79,26 @@ export default function SongsPage() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10 md:gap-14 justify-items-center w-full max-w-7xl relative z-10 pb-20">
-          {songs.map((song) => (
-            <div
-              key={song.id}
-              className="transition-transform hover:scale-105 duration-300"
-            >
-              <SongCard song={song} />
-            </div>
-          ))}
-        </div>
+        {isLoading ? (
+          <div className="text-cyan-900 font-bold animate-pulse">
+            Finding your perfect tracks...
+          </div>
+        ) : error ? (
+          <div className="text-red-500 font-bold">{error}</div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10 md:gap-14 justify-items-center w-full max-w-7xl relative z-10 pb-20">
+            {songs.map((song) => (
+              <Link
+                href={song.url}
+                key={song.id}
+                className="transition-transform hover:scale-105 duration-300"
+                target="_blank"
+              >
+                <SongCard song={song} />
+              </Link>
+            ))}
+          </div>
+        )}
       </main>
     </div>
   );
