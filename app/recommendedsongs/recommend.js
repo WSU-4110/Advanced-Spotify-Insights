@@ -36,7 +36,11 @@ export async function getMbtiRecommendations(mbtiType, accessToken) {
     accessToken,
   );
   const userGenres = [
-    ...new Set(artistsData?.items?.flatMap((a) => a.genres) || []),
+    ...new Set(
+      (artistsData?.items?.flatMap((a) => a.genres ?? []) || []).filter(
+        Boolean,
+      ),
+    ),
   ];
 
   // Mix user genres with MBTI
