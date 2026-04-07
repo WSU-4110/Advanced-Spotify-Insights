@@ -59,6 +59,7 @@ class QuizContext {
       type,
       ...this.resultOptions[type],
     };
+    localStorage.setItem("quizResult", JSON.stringify(this.result));
   }
 
   resetQuiz() {
@@ -77,20 +78,20 @@ class QuizContext {
     this.screen = "start";
   }
 
-notify() {
-  if (this.onChange) {
-    this.onChange({
-      screen: this.screen,
-      currentQuestionIndex: this.currentQuestionIndex,
-      totalQuestions: this.questions.length,
-      question: this.getCurrentQuestion(),
-      currentQuestion: this.getCurrentQuestion(),
-      userAnswers: this.userAnswers,
-      result: this.result,
-      resultData: this.result,
-    });
+  notify() {
+    if (this.onChange) {
+      this.onChange({
+        screen: this.screen,
+        currentQuestionIndex: this.currentQuestionIndex,
+        totalQuestions: this.questions.length,
+        question: this.getCurrentQuestion(),
+        currentQuestion: this.getCurrentQuestion(),
+        userAnswers: this.userAnswers,
+        result: this.result,
+        resultData: this.result,
+      });
+    }
   }
-}
 }
 
 export default QuizContext;

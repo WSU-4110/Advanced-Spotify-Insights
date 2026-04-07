@@ -18,5 +18,6 @@ export default function ArtistCard({artist} : Props) {
         {artist.name}
       </p>
     </div>
+    
   );
 }

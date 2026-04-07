@@ -54,6 +54,7 @@ export default function ArtistsPage() {
           id: item.id,
           name: item.name,
           image: item.images[0]?.url || "https://placehold.co/200", // Fallback if no image
+          url: item.external_urls.spotify,
         }));
 
         setArtists(mappedArtists);
@@ -102,12 +103,14 @@ export default function ArtistsPage() {
         ) : (
           <div className="relative z-10 grid w-full max-w-7xl grid-cols-1 justify-items-center gap-10 pb-20 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:gap-14">
             {artists.map((artist) => (
-              <div
+              <Link
+                href={`${artist.url}`}
                 key={artist.id}
                 className="cursor-pointer transition-transform duration-300 hover:scale-105 hover:-rotate-1"
+                target="_blank"
               >
                 <ArtistCard artist={artist} />
-              </div>
+              </Link>
             ))}
           </div>
         )}
