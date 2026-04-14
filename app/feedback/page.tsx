@@ -1,5 +1,5 @@
 import Navbar from "../components/navbar";
-
+import Link from "next/link";
 export default function Feedback() {
   return (
     <div className="min-h-screen bg-custom font-sans selection:bg-cyan-300">
@@ -18,49 +18,15 @@ export default function Feedback() {
             </p>
           </div>
 
-          <form className="space-y-6 relative z-10">
-            {/* Chunky Name Input */}
-            <div className="space-y-2 flex flex-col">
-              <label
-                htmlFor="name"
-                className="text-base font-bold text-cyan-900 ml-2"
-              >
-                Name
-              </label>
-              <input
-                type="text"
-                id="name"
-                placeholder="Enter your name"
-                className="w-full rounded-2xl border-2 border-cyan-950 bg-white/60 px-4 py-3 text-cyan-950 placeholder-cyan-950 focus:bg-white focus:border-cyan-400 focus:outline-none transition-all shadow-sm"
-              />
-            </div>
-
-            {/* Chunky Message Input */}
-            <div className="space-y-2 flex flex-col">
-              <label
-                htmlFor="message"
-                className="text-base font-bold text-cyan-900 ml-2"
-              >
-                Message
-              </label>
-              <textarea
-                id="message"
-                rows={5}
-                placeholder="Tell us your thoughts..."
-                className="w-full rounded-2xl border-2 border-cyan-950 bg-white/60 px-4 py-3 text-black placeholder-cyan-950 focus:bg-white focus:border-cyan-400 focus:outline-none transition-all shadow-sm resize-none"
-              />
-            </div>
-
-            {/* Tactile Submit Button */}
-            <div className="pt-4">
-              <button
-                type="submit"
-                className="w-full flex h-14 items-center justify-center rounded-full bg-cyan-500 px-6 text-white text-lg font-bold transition-all hover:bg-cyan-400 shadow-[0_6px_0_rgb(8,145,178)] hover:shadow-[0_2px_0_rgb(8,145,178)] hover:translate-y-[4px] active:shadow-none active:translate-y-[6px]"
-              >
-                Submit Feedback
-              </button>
-            </div>
-          </form>
+          <div className="pt-4">
+            <Link
+              href="https://forms.gle/t6xGcSpUpp2huuby6"
+              target="_blank"
+              className="w-full flex h-14 items-center justify-center rounded-full bg-cyan-500 px-6 text-white text-lg font-bold transition-all hover:bg-cyan-400 shadow-[0_6px_0_rgb(8,145,178)] hover:shadow-[0_2px_0_rgb(8,145,178)] hover:translate-y-[4px] active:shadow-none active:translate-y-[6px]"
+            >
+              Submit Feedback
+            </Link>
+          </div>
         </div>
       </main>
     </div>
