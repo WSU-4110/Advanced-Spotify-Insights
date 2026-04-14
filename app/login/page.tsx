@@ -18,7 +18,7 @@ export default function Login() {
   }, [session, router]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-cyan-50 via-sky-200 to-blue-400 font-sans selection:bg-cyan-300">
+    <div className="min-h-screen bg-custom font-sans selection:bg-cyan-300">
       <Navbar />
 
       <main className="flex min-h-[calc(100vh-80px)] items-center justify-center px-6">
