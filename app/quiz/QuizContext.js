@@ -16,6 +16,7 @@ class QuizContext {
       J: 0,
       P: 0,
     };
+    this.selectedAnswers = [];
     this.resultOptions = resultOptions;
     this.result = null;
     this.screen = "start";
@@ -48,6 +49,11 @@ class QuizContext {
     this.notify();
   }
 
+  goBack() {
+    this.currentState.goBack(this);
+    this.notify();
+  }
+
   restartQuiz() {
     this.currentState.restartQuiz(this);
     this.notify();
@@ -55,6 +61,28 @@ class QuizContext {
 
   getCurrentQuestion() {
     return this.questions[this.currentQuestionIndex];
+  }
+
+  applyScores(answerKey) {
+    const question = this.getCurrentQuestion();
+    const answer = question?.answers?.[answerKey];
+
+    if (!answer?.scores) return;
+
+    Object.entries(answer.scores).forEach(([trait, value]) => {
+      this.userAnswers[trait] = (this.userAnswers[trait] || 0) + value;
+    });
+  }
+
+  removeScores(answerKey, questionIndex = this.currentQuestionIndex) {
+    const question = this.questions[questionIndex];
+    const answer = question?.answers?.[answerKey];
+
+    if (!answer?.scores) return;
+
+    Object.entries(answer.scores).forEach(([trait, value]) => {
+      this.userAnswers[trait] = (this.userAnswers[trait] || 0) - value;
+    });
   }
 
   calculateResult() {
@@ -108,6 +136,7 @@ class QuizContext {
       J: 0,
       P: 0,
     };
+    this.selectedAnswers = [];
     this.result = "";
     this.screen = "start";
   }
@@ -121,6 +150,9 @@ class QuizContext {
         question: this.getCurrentQuestion(),
         currentQuestion: this.getCurrentQuestion(),
         userAnswers: this.userAnswers,
+        selectedAnswers: this.selectedAnswers,
+        selectedAnswerKey:
+          this.selectedAnswers[this.currentQuestionIndex] ?? null,
         result: this.result,
         resultData: this.result,
       });

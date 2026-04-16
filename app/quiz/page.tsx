@@ -92,6 +92,18 @@ export default function QuizPage() {
                     ),
                   )}
                 </div>
+                
+                <div className="mt-6 flex justify-center">
+                  <button
+                    onClick={() => contextRef.current.goBack()}
+                    disabled={(quizState.currentQuestionIndex ?? 0) === 0}
+                    className="inline-flex h-12 items-center justify-center rounded-full border-2 border-cyan-500 px-5 text-cyan-700 text-base font-bold whitespace-nowrap transition-all hover:bg-cyan-100 hover:border-cyan-600 hover:text-cyan-900 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-transparent disabled:hover:border-cyan-500 disabled:hover:text-cyan-700"
+                  >
+                    Back
+                  </button>
+                </div>
+
+
               </div>
             </div>
           )}
