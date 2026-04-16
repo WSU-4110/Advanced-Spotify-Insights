@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import ArtistCard from "../components/artistcard";
 import Navbar from "../components/navbar";
 import { Artist } from "../types/artist";
@@ -14,7 +15,8 @@ const apiValues = {
 };
 
 export default function ArtistsPage() {
-  const { data: session } = authClient.useSession();
+  const { data: session, isPending } = authClient.useSession();
+  const router = useRouter();
 
   // Initialize state for artists and loading
   const [artists, setArtists] = useState<Artist[]>([]);
@@ -22,7 +24,17 @@ export default function ArtistsPage() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    if (!isPending && !session) {
+      router.push("/login");
+    }
+  }, [session, isPending, router]);
+
+  useEffect(() => {
     async function fetchData() {
+      if (isPending || !session) {
+        return;
+      }
+
       try {
         setIsLoading(true);
 
@@ -68,7 +80,24 @@ export default function ArtistsPage() {
     }
 
     fetchData();
-  }, []);
+  }, [session, isPending]);
+
+    if (isPending) {
+    return (
+      <div className="min-h-screen bg-custom font-sans selection:bg-cyan-300">
+        <Navbar />
+        <main className="flex min-h-[calc(100vh-80px)] items-center justify-center px-6 py-12">
+          <div className="text-cyan-900 font-bold animate-pulse">
+            Checking login...
+          </div>
+        </main>
+      </div>
+    );
+  }
+
+  if (!session) {
+    return null;
+  }
 
   return (
     <div className="min-h-screen bg-custom font-sans selection:bg-cyan-300">
