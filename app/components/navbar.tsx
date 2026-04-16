@@ -38,7 +38,7 @@ export default function Navbar() {
 
           {/* Desktop nav */}
           <div className="hidden md:flex items-center justify-end">
-            <div className="flex items-center gap-1 sm:gap-2"></div>
+            <div className="flex items-center gap-1 sm:gap-2">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
@@ -48,9 +48,13 @@ export default function Navbar() {
                 {link.name}
               </Link>
             ))}
+          </div>
+
+            {/*DIVIDER */}
+            <div className="mx-6 h-6 w-px bg-gradient-to-b from-transparent via-cyan-600/60 to-transparent"></div>
 
             {session ? (
-              <div className="flex items-center gap-2 ml-6">
+              <div className="flex items-center gap-2">
                 {session.user.image && (
                   <img
                     src={session.user.image}
