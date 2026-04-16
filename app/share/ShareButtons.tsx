@@ -5,9 +5,10 @@ type ShareButtonsProps = {
   title: string;
   text: string;
   onDownload?: () => void;
+  imageUrl?: string;
 };
 
-export default function ShareButtons({url, title, text, onDownload,
+export default function ShareButtons({url, title, text, onDownload, imageUrl,
 }: ShareButtonsProps) {
   const encodedUrl = encodeURIComponent(url);
   const encodedTitle = encodeURIComponent(title);
@@ -26,6 +27,16 @@ export default function ShareButtons({url, title, text, onDownload,
     } catch (error) {
       console.error("Error sharing:", error);
     }
+  };
+
+  const handleInstagramShare = () => {
+    if (onDownload) {
+      onDownload();
+    }
+
+    alert(
+      "Image downloaded! Open Instagram and post to Instagram Story to share your result! ",
+    );
   };
 
   return (
@@ -58,7 +69,7 @@ export default function ShareButtons({url, title, text, onDownload,
           onClick={handleNativeShare}
           className="inline-flex h-12 items-center justify-center rounded-full bg-cyan-500 px-6 text-base font-bold text-white whitespace-nowrap transition-all hover:bg-cyan-400 shadow-[0_6px_0_rgb(8,145,178)] hover:shadow-[0_2px_0_rgb(8,145,178)] hover:translate-y-[4px] active:shadow-none active:translate-y-[6px]"
         >
-          Share
+          Quick Share
         </button>
       )}
 
@@ -88,6 +99,12 @@ export default function ShareButtons({url, title, text, onDownload,
       >
         Share on WhatsApp
       </a>
+      <button
+        onClick={handleInstagramShare}
+        className="inline-flex h-12 items-center justify-center rounded-full bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 px-6 text-base font-bold text-white whitespace-nowrap transition-all hover:opacity-90"
+      >
+        Share on Instagram
+      </button>
     </div>
   );
 }

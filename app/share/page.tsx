@@ -136,6 +136,7 @@ export default function SharePage() {
               title={shareTitle}
               text={shareText}
               onDownload={handleDownloadImage}
+              imageUrl={quizResult.image}
             />
           </div>
         </div>
