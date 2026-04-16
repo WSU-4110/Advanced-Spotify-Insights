@@ -1,7 +1,38 @@
+"use client";
+
 import Navbar from "../components/navbar";
 import ShareButtons from "./ShareButtons";
+import { authClient } from "@/app/lib/auth-client";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function SharePage() {
+  const { data: session, isPending } = authClient.useSession();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!isPending && !session) {
+      router.push("/login");
+    }
+  }, [session, isPending, router]);
+
+  if (isPending) {
+    return (
+      <div className="min-h-screen bg-custom font-sans selection:bg-cyan-300">
+        <Navbar />
+        <main className="flex min-h-[calc(100vh-80px)] items-center justify-center px-6 py-12">
+          <div className="text-cyan-900 font-bold animate-pulse">
+            Checking login...
+          </div>
+        </main>
+      </div>
+    );
+  }
+
+  if (!session) {
+    return null;
+  }
+  
   const shareUrl = "http://localhost:3000/share";
   const shareTitle = "My Sea Spot Result";
   const shareText = "Check out my Sea Spot top artists result!";
