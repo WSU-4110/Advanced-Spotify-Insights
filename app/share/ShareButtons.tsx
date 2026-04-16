@@ -1,72 +1,110 @@
 "use client";
 
-type Props = {
+type ShareButtonsProps = {
   url: string;
   title: string;
   text: string;
+  onDownload?: () => void;
+  imageUrl?: string;
 };
 
-export default function ShareButtons({ url, title, text }: Props) {
-  async function handleNativeShare() {
-    try {
-      if (navigator.share) {
-        await navigator.share({
-          title,
-          text,
-          url,
-        });
-      } else {
-        alert("Sharing is not supported on this browser.");
-      }
-    } catch (error) {
-      console.error("Share failed:", error);
-    }
-  }
-
+export default function ShareButtons({url, title, text, onDownload, imageUrl,
+}: ShareButtonsProps) {
   const encodedUrl = encodeURIComponent(url);
+  const encodedTitle = encodeURIComponent(title);
   const encodedText = encodeURIComponent(text);
+  const combinedText = encodeURIComponent(`${text} ${url}`);
+  
+  const handleNativeShare = async () => {
+    if (!navigator.share) return;
 
-  const xShareUrl = `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedText}`;
-  const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`;
-  const whatsappShareUrl = `https://wa.me/?text=${encodeURIComponent(
-    `${text} ${url}`,
-  )}`;
+    try {
+      await navigator.share({
+        title,
+        text,
+        url,
+      });
+    } catch (error) {
+      console.error("Error sharing:", error);
+    }
+  };
+
+  const handleInstagramShare = () => {
+    if (onDownload) {
+      onDownload();
+    }
+
+    alert(
+      "Image downloaded! Open Instagram and post to Instagram Story to share your result! ",
+    );
+  };
 
   return (
-    <div className="flex flex-wrap gap-3">
-      <button
-        onClick={handleNativeShare}
-        className="rounded-full bg-cyan-500 px-5 py-3 font-bold text-white transition-all hover:bg-cyan-400 shadow-[0_6px_0_rgb(8,145,178)] hover:shadow-[0_2px_0_rgb(8,145,178)] hover:translate-y-[4px] active:shadow-none active:translate-y-[6px]"
-      >
-        Share
-      </button>
+    <div className="flex flex-wrap justify-center gap-4">
+      {onDownload && (
+        <button
+          onClick={onDownload}
+          className="inline-flex h-12 items-center justify-center gap-2 rounded-full border-2 border-cyan-500 px-6 text-cyan-700 text-base font-bold whitespace-nowrap transition-all hover:bg-cyan-100 hover:border-cyan-600 hover:text-cyan-900 hover:scale-105 active:scale-95"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={2}
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V4"
+            />
+          </svg>
+          Download Image
+        </button>
+      )}
+
+      {typeof navigator !== "undefined" && "share" in navigator && (
+        <button
+          onClick={handleNativeShare}
+          className="inline-flex h-12 items-center justify-center rounded-full bg-cyan-500 px-6 text-base font-bold text-white whitespace-nowrap transition-all hover:bg-cyan-400 shadow-[0_6px_0_rgb(8,145,178)] hover:shadow-[0_2px_0_rgb(8,145,178)] hover:translate-y-[4px] active:shadow-none active:translate-y-[6px]"
+        >
+          Quick Share
+        </button>
+      )}
 
       <a
-        href={xShareUrl}
+        href={`https://twitter.com/intent/tweet?text=${combinedText}`}
         target="_blank"
         rel="noopener noreferrer"
-        className="rounded-full bg-black px-5 py-3 font-bold text-white transition-all hover:brightness-125 shadow-[0_6px_0_rgba(0,0,0,0.4)] hover:shadow-[0_2px_0_rgba(0,0,0,0.4)] hover:translate-y-[4px] active:shadow-none active:translate-y-[6px]"
+        className="inline-flex h-12 items-center justify-center rounded-full bg-black px-6 text-base font-bold text-white whitespace-nowrap transition-all hover:opacity-90"
       >
         Share on X
       </a>
 
       <a
-        href={facebookShareUrl}
+        href={`https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`}
         target="_blank"
         rel="noopener noreferrer"
-        className="rounded-full bg-blue-600 px-5 py-3 font-bold text-white transition-all hover:bg-blue-500 shadow-[0_6px_0_rgb(29,78,216)] hover:shadow-[0_2px_0_rgb(29,78,216)] hover:translate-y-[4px] active:shadow-none active:translate-y-[6px]"
+        className="inline-flex h-12 items-center justify-center rounded-full bg-blue-600 px-6 text-base font-bold text-white whitespace-nowrap transition-all hover:opacity-90"
       >
         Share on Facebook
       </a>
 
       <a
-        href={whatsappShareUrl}
+        href={`https://wa.me/?text=${combinedText}`}
         target="_blank"
         rel="noopener noreferrer"
-        className="rounded-full bg-green-600 px-5 py-3 font-bold text-white transition-all hover:bg-green-500 shadow-[0_6px_0_rgb(22,101,52)] hover:shadow-[0_2px_0_rgb(22,101,52)] hover:translate-y-[4px] active:shadow-none active:translate-y-[6px]"
+        className="inline-flex h-12 items-center justify-center rounded-full bg-green-600 px-6 text-base font-bold text-white whitespace-nowrap transition-all hover:opacity-90"
       >
         Share on WhatsApp
       </a>
+      <button
+        onClick={handleInstagramShare}
+        className="inline-flex h-12 items-center justify-center rounded-full bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 px-6 text-base font-bold text-white whitespace-nowrap transition-all hover:opacity-90"
+      >
+        Share on Instagram
+      </button>
     </div>
   );
 }
