@@ -174,7 +174,24 @@ export default function QuizPage() {
                     href="/share"
                     className="inline-flex h-12 items-center justify-center rounded-full border-2 border-cyan-500 px-6 text-cyan-700 text-base font-bold whitespace-nowrap transition-all hover:bg-cyan-100 hover:border-cyan-600 hover:text-cyan-900 hover:scale-105 active:scale-95"
                   >
-                    Share Result
+                  <span className="flex items-center gap-2">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-5 w-5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M4 12v7a1 1 0 001 1h14a1 1 0 001-1v-7M16 6l-4-4m0 0L8 6m4-4v12"
+                        />
+                      </svg>
+
+                      Share Result
+                    </span>
                   </Link>
                 </div>
 
