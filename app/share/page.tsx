@@ -41,6 +41,17 @@ export default function SharePage() {
     }
   }, []);
 
+  const handleDownloadImage = () => {
+    if (!quizResult?.image) return;
+
+    const link = document.createElement("a");
+    link.href = quizResult.image;
+    link.download = `sea-spot-${quizResult.type}-result.png`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   if (isPending) {
     return (
       <div className="min-h-screen bg-custom font-sans selection:bg-cyan-300">
@@ -120,7 +131,12 @@ export default function SharePage() {
           </div>
 
           <div className="mt-8">
-            <ShareButtons url={shareUrl} title={shareTitle} text={shareText} />
+            <ShareButtons
+              url={shareUrl}
+              title={shareTitle}
+              text={shareText}
+              onDownload={handleDownloadImage}
+            />
           </div>
         </div>
       </main>
