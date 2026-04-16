@@ -11,8 +11,12 @@ export default function Navbar() {
 
   const navLinks = [
     { name: "Home", href: "/" },
-    { name: "Top Artists", href: "/topartists" },
-    { name: "Recommended", href: "/recommendedsongs" },
+    ...(session
+      ? [
+          { name: "Top Artists", href: "/topartists" },
+          { name: "Recommended", href: "/recommendedsongs" },
+        ]
+      : []),
     { name: "Quiz", href: "/quiz" },
     { name: "Feedback", href: "/feedback" },
   ];
@@ -33,7 +37,8 @@ export default function Navbar() {
           </div>
 
           {/* Desktop nav */}
-          <div className="hidden md:flex items-center gap-1 sm:gap-2 justify-end">
+          <div className="hidden md:flex items-center justify-end">
+            <div className="flex items-center gap-1 sm:gap-2"></div>
             {navLinks.map((link) => (
               <Link
                 key={link.name}
@@ -45,7 +50,7 @@ export default function Navbar() {
             ))}
 
             {session ? (
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 ml-6">
                 {session.user.image && (
                   <img
                     src={session.user.image}

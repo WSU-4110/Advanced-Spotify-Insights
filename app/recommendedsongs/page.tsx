@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import SongCard from "../components/songcard";
 import Navbar from "../components/navbar";
 import { Song } from "../types/song";
@@ -9,12 +10,25 @@ import { getMbtiRecommendations } from "@/app/recommendedsongs/recommend";
 import Link from "next/link";
 
 export default function SongsPage() {
+  const { data: session, isPending } = authClient.useSession();
+  const router = useRouter();
+
   const [songs, setSongs] = useState<Song[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    if (!isPending && !session) {
+      router.push("/login");
+    }
+  }, [session, isPending, router]);
+
+  useEffect(() => {
     async function fetchData() {
+      if (isPending || !session) {
+        return;
+      }
+
       try {
         setIsLoading(true);
 
@@ -60,7 +74,24 @@ export default function SongsPage() {
     }
 
     fetchData();
-  }, []);
+  }, [session, isPending]);
+
+    if (isPending) {
+    return (
+      <div className="min-h-screen bg-custom font-sans selection:bg-cyan-300">
+        <Navbar />
+        <main className="flex min-h-[calc(100vh-80px)] items-center justify-center px-6 py-12">
+          <div className="text-cyan-900 font-bold animate-pulse">
+            Checking login...
+          </div>
+        </main>
+      </div>
+    );
+  }
+
+  if (!session) {
+    return null;
+  }
 
   return (
     <div className="min-h-screen bg-custom font-sans selection:bg-cyan-300">
