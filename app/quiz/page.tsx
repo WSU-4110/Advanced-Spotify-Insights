@@ -92,6 +92,18 @@ export default function QuizPage() {
                     ),
                   )}
                 </div>
+                
+                <div className="mt-6 flex justify-center">
+                  <button
+                    onClick={() => contextRef.current.goBack()}
+                    disabled={(quizState.currentQuestionIndex ?? 0) === 0}
+                    className="inline-flex h-12 items-center justify-center rounded-full border-2 border-cyan-500 px-5 text-cyan-700 text-base font-bold whitespace-nowrap transition-all hover:bg-cyan-100 hover:border-cyan-600 hover:text-cyan-900 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-transparent disabled:hover:border-cyan-500 disabled:hover:text-cyan-700"
+                  >
+                    Back
+                  </button>
+                </div>
+
+
               </div>
             </div>
           )}
@@ -112,43 +124,79 @@ export default function QuizPage() {
                   />
                 )}
 
-                <div className="mt-6 w-full flex justify-center">
+                <div className="mt-6 w-full flex flex-col sm:flex-row gap-4 justify-center items-center">
+
+                  {/* RECOMMENDED BUTTON */}
+                  <Link
+                    href="/recommendedsongs"
+                    className="flex h-14 w-full sm:w-auto flex-1 items-center justify-center rounded-full bg-cyan-500 px-6 text-white text-lg font-bold text-center whitespace-nowrap transition-all hover:bg-cyan-400 shadow-[0_6px_0_rgb(8,145,178)] hover:shadow-[0_2px_0_rgb(8,145,178)] hover:translate-y-[4px] active:shadow-none active:translate-y-[6px]"
+                  >
+                    View Recommended Songs
+                  </Link>
+
+                  {/* RESTART ICON */}
+                  <div className="relative group">
+                    <button
+                      onClick={() => contextRef.current.restartQuiz()}
+                      className="flex h-14 w-14 items-center justify-center rounded-full bg-cyan-500 text-white transition-all hover:bg-cyan-400 shadow-[0_6px_0_rgb(8,145,178)] hover:shadow-[0_2px_0_rgb(8,145,178)] hover:translate-y-[4px] active:shadow-none active:translate-y-[6px]"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-7 w-7"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M4 4v6h6M20 20v-6h-6M5.636 18.364A9 9 0 103 12m18 0a9 9 0 01-2.636 6.364"
+                        />
+                      </svg>
+                    </button>
+
+                    {/* Tooltip */}
+                    <div className="absolute left-1/2 -translate-x-1/2 mt-2 whitespace-nowrap rounded-lg bg-cyan-900 px-3 py-1 text-sm text-white opacity-0 group-hover:opacity-100 transition-opacity">
+                      Restart Quiz
+                    </div>
+                  </div>
+
+                </div>
+
+                <div className="w-full flex justify-center mt-7">
+                <div className="w-3/4 h-[3px] bg-gradient-to-r from-transparent via-cyan-300/60 to-transparent"></div>
+              </div>
+
+                  {/* SHARE BUTTON */}
+                  <div className="mt-4 w-full flex justify-center">
                   <Link
                     href="/share"
-                    className="flex h-14 w-full sm:w-48 items-center justify-center rounded-full bg-cyan-500 px-6 text-white text-lg transition-all hover:bg-cyan-400 shadow-[0_6px_0_rgb(8,145,178)] hover:shadow-[0_2px_0_rgb(8,145,178)] hover:translate-y-[4px] active:shadow-none active:translate-y-[6px] font-bold"
+                    className="inline-flex h-12 items-center justify-center rounded-full border-2 border-cyan-500 px-6 text-cyan-700 text-base font-bold whitespace-nowrap transition-all hover:bg-cyan-100 hover:border-cyan-600 hover:text-cyan-900 hover:scale-105 active:scale-95"
                   >
-                    Share Result
+                  <span className="flex items-center gap-2">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-5 w-5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M4 12v7a1 1 0 001 1h14a1 1 0 001-1v-7M16 6l-4-4m0 0L8 6m4-4v12"
+                        />
+                      </svg>
+
+                      Share Result
+                    </span>
                   </Link>
                 </div>
 
-                <div className="relative mt-4 group">
-                  <button
-                    onClick={() => contextRef.current.restartQuiz()}
-                    className="flex h-12 w-12 items-center justify-center rounded-full bg-cyan-500 text-white transition-all hover:bg-cyan-400 shadow-[0_6px_0_rgb(8,145,178)] hover:shadow-[0_2px_0_rgb(8,145,178)] hover:translate-y-[4px] active:shadow-none active:translate-y-[6px]"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-6 w-6"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      strokeWidth={2}
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M4 4v6h6M20 20v-6h-6M5.636 18.364A9 9 0 103 12m18 0a9 9 0 01-2.636 6.364"
-                      />
-                    </svg>
-                  </button>
-
-                  {/* Tooltip */}
-                  <div className="absolute left-1/2 -translate-x-1/2 mt-2 whitespace-nowrap rounded-lg bg-cyan-900 px-3 py-1 text-sm text-white opacity-0 group-hover:opacity-100 transition-opacity">
-                    Restart Quiz
-                  </div>
-                </div>
               </div>
-            </div>
+             </div>
           )}
         </main>
       </div>

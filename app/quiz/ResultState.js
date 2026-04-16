@@ -16,6 +16,7 @@ class ResultState extends QuizState {
   }
 
   restartQuiz(context) {
+    context.clearSavedResult();
     context.resetQuiz();
     context.setState(new StartState());
   }

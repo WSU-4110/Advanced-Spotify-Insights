@@ -12,30 +12,41 @@ class QuestionState extends QuizState {
   }
 
   selectAnswer(context, answerKey) {
-    const question = context.getCurrentQuestion();
+    const currentIndex = context.currentQuestionIndex;
 
-    if (!question || !question.answers || !question.answers[answerKey]) {
-      //invalid answer
-      return;
+    const existingAnswerKey = context.selectedAnswers[currentIndex];
+    if (existingAnswerKey) {
+      context.removeScores(existingAnswerKey, currentIndex);
     }
 
-    const selectedAnswer = question.answers[answerKey];
+    context.selectedAnswers[currentIndex] = answerKey;
 
-    //add mbti scores
+    context.applyScores(answerKey);
 
-    if (selectedAnswer.scores) {
-      for (const dimension in selectedAnswer.scores) {
-        context.userAnswers[dimension] = (context.userAnswers[dimension] || 0 ) + selectedAnswer.scores[dimension];
-      }
-    }
-
-    if (context.currentQuestionIndex < context.questions.length - 1) {
-      context.currentQuestionIndex++;
+    if (currentIndex < context.questions.length - 1) {
+      context.currentQuestionIndex += 1;
       context.notify();
     } else {
       context.calculateResult();
       context.setState(new ResultState());
     }
+  }
+
+  goBack(context) {
+    if (context.currentQuestionIndex <= 0) {
+      return;
+    }
+
+    const previousIndex = context.currentQuestionIndex - 1;
+    const previousAnswerKey = context.selectedAnswers[previousIndex];
+
+    if (previousAnswerKey) {
+      context.removeScores(previousAnswerKey, previousIndex);
+      context.selectedAnswers[previousIndex] = null;
+    }
+
+    context.currentQuestionIndex = previousIndex;
+    context.notify();
   }
 
   restartQuiz(context) {

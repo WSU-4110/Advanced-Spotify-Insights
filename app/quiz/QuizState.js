@@ -11,6 +11,9 @@ export default class QuizState {
   }
 
   restartQuiz(context) {
+  }
+
+  goBack(context) {
     
   }
 }
