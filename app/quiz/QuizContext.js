@@ -1,4 +1,5 @@
 import StartState from "./StartState";
+import ResultState from "./ResultState";
 
 class QuizContext {
   constructor(questions, resultOptions, onChange) {
@@ -20,7 +21,15 @@ class QuizContext {
     this.screen = "start";
     this.onChange = onChange;
 
-    this.setState(new StartState());
+   const savedResult = this.getSavedResult();
+
+    if (savedResult) {
+      this.result = savedResult;
+      this.currentState = new ResultState();
+      this.currentState.enter(this);
+    } else {
+      this.setState(new StartState());
+    }
   }
 
   setState(state) {
@@ -61,6 +70,31 @@ class QuizContext {
     };
     localStorage.setItem("quizResult", JSON.stringify(this.result));
   }
+
+    getSavedResult() {
+      try {
+        const saved = localStorage.getItem("quizResult");
+        if (!saved) return null;
+
+        const parsed = JSON.parse(saved);
+
+        if (!parsed?.type || !this.resultOptions[parsed.type]) {
+          return null;
+        }
+
+        return {
+          type: parsed.type,
+          ...this.resultOptions[parsed.type],
+        };
+      } catch (error) {
+        console.error("Failed to read saved quiz result:", error);
+        return null;
+      }
+    }
+
+    clearSavedResult() {
+      localStorage.removeItem("quizResult");
+    }
 
   resetQuiz() {
     this.currentQuestionIndex = 0;
