@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import Navbar from "../components/navbar";
 import QuizContext from "./QuizContext";
@@ -111,12 +112,41 @@ export default function QuizPage() {
                   />
                 )}
 
-                <button
-                  onClick={() => contextRef.current.restartQuiz()}
-                  className="flex h-14 w-full sm:w-48 items-center justify-center rounded-full bg-cyan-500 px-6 text-white text-lg transition-all hover:bg-cyan-400 shadow-[0_6px_0_rgb(8,145,178)] hover:shadow-[0_2px_0_rgb(8,145,178)] hover:translate-y-[4px] active:shadow-none active:translate-y-[6px] font-bold"
-                >
-                  Restart Quiz
-                </button>
+                <div className="mt-6 w-full flex justify-center">
+                  <Link
+                    href="/share"
+                    className="flex h-14 w-full sm:w-48 items-center justify-center rounded-full bg-cyan-500 px-6 text-white text-lg transition-all hover:bg-cyan-400 shadow-[0_6px_0_rgb(8,145,178)] hover:shadow-[0_2px_0_rgb(8,145,178)] hover:translate-y-[4px] active:shadow-none active:translate-y-[6px] font-bold"
+                  >
+                    Share Result
+                  </Link>
+                </div>
+
+                <div className="relative mt-4 group">
+                  <button
+                    onClick={() => contextRef.current.restartQuiz()}
+                    className="flex h-12 w-12 items-center justify-center rounded-full bg-cyan-500 text-white transition-all hover:bg-cyan-400 shadow-[0_6px_0_rgb(8,145,178)] hover:shadow-[0_2px_0_rgb(8,145,178)] hover:translate-y-[4px] active:shadow-none active:translate-y-[6px]"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-6 w-6"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M4 4v6h6M20 20v-6h-6M5.636 18.364A9 9 0 103 12m18 0a9 9 0 01-2.636 6.364"
+                      />
+                    </svg>
+                  </button>
+
+                  {/* Tooltip */}
+                  <div className="absolute left-1/2 -translate-x-1/2 mt-2 whitespace-nowrap rounded-lg bg-cyan-900 px-3 py-1 text-sm text-white opacity-0 group-hover:opacity-100 transition-opacity">
+                    Restart Quiz
+                  </div>
+                </div>
               </div>
             </div>
           )}

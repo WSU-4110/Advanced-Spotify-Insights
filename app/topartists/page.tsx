@@ -115,16 +115,7 @@ export default function ArtistsPage() {
             The captains of your listening journey.
           </p>
 
-          {session && (
-            <div className="mt-6">
-              <Link
-                href="/share"
-                className="inline-flex h-14 items-center justify-center rounded-full bg-cyan-500 px-6 text-lg font-bold text-white transition-all hover:bg-cyan-400 shadow-[0_6px_0_rgb(8,145,178)] hover:shadow-[0_2px_0_rgb(8,145,178)] hover:translate-y-[4px] active:shadow-none active:translate-y-[6px]"
-              >
-                Share My Result
-              </Link>
-            </div>
-            )}
+
           </div>
           
 
