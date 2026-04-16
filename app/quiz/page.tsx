@@ -152,11 +152,15 @@ export default function QuizPage() {
 
                 </div>
 
+                <div className="w-full flex justify-center mt-7">
+                <div className="w-3/4 h-[3px] bg-gradient-to-r from-transparent via-cyan-300/60 to-transparent"></div>
+              </div>
+
                   {/* SHARE BUTTON */}
                   <div className="mt-4 w-full flex justify-center">
                   <Link
                     href="/share"
-                    className="inline-flex h-14 items-center justify-center rounded-full bg-cyan-500 px-6 text-white text-lg font-bold whitespace-nowrap transition-all hover:bg-cyan-400 shadow-[0_6px_0_rgb(8,145,178)] hover:shadow-[0_2px_0_rgb(8,145,178)] hover:translate-y-[4px] active:shadow-none active:translate-y-[6px]"
+                    className="inline-flex h-12 items-center justify-center rounded-full border-2 border-cyan-500 px-6 text-cyan-700 text-base font-bold whitespace-nowrap transition-all hover:bg-cyan-100 hover:border-cyan-600 hover:text-cyan-900 hover:scale-105 active:scale-95"
                   >
                     Share Result
                   </Link>
