@@ -64,7 +64,7 @@ export default function ShareButtons({url, title, text, onDownload, imageUrl,
         </button>
       )}
 
-      {typeof navigator !== "undefined" && navigator.share && (
+      {typeof navigator !== "undefined" && "share" in navigator && (
         <button
           onClick={handleNativeShare}
           className="inline-flex h-12 items-center justify-center rounded-full bg-cyan-500 px-6 text-base font-bold text-white whitespace-nowrap transition-all hover:bg-cyan-400 shadow-[0_6px_0_rgb(8,145,178)] hover:shadow-[0_2px_0_rgb(8,145,178)] hover:translate-y-[4px] active:shadow-none active:translate-y-[6px]"
