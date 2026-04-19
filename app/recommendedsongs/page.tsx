@@ -14,15 +14,34 @@ export default function SongsPage() {
   const router = useRouter();
 
   const [songs, setSongs] = useState<Song[]>([]);
+  const [savedSongs, setSavedSongs] = useState<Song[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  // Protect page
   useEffect(() => {
     if (!isPending && !session) {
       router.push("/login");
     }
   }, [session, isPending, router]);
 
+  // Load saved song IDs from browser storage
+  useEffect(() => {
+    const saved = localStorage.getItem("savedRecommendedSongs");
+
+    if (!saved) return;
+
+    try {
+      const parsed = JSON.parse(saved);
+      if (Array.isArray(parsed)) {
+        setSavedSongs(parsed);
+      }
+    } catch (error) {
+      console.error("Failed to read saved songs:", error);
+    }
+  }, []);
+
+  // Fetch recommendations
   useEffect(() => {
     async function fetchData() {
       if (isPending || !session) {
@@ -32,15 +51,14 @@ export default function SongsPage() {
       try {
         setIsLoading(true);
 
-        // Get quiz result from localStorage
         const quizResult = JSON.parse(
           localStorage.getItem("quizResult") || "null",
         );
+
         if (!quizResult?.type) {
           throw new Error("No quiz result found. Take the quiz first!");
         }
 
-        // Get the Access Token from Better Auth
         const { data: tokenData, error: tokenError } =
           await authClient.getAccessToken({
             providerId: "spotify",
@@ -50,7 +68,6 @@ export default function SongsPage() {
           throw new Error("Could not retrieve Spotify access token.");
         }
 
-        // Fetch recommendations based on MBTI type
         const tracks = await getMbtiRecommendations(
           quizResult.type,
           tokenData.accessToken,
@@ -76,7 +93,24 @@ export default function SongsPage() {
     fetchData();
   }, [session, isPending]);
 
-    if (isPending) {
+  const toggleSaveSong = (song: Song) => {
+    setSavedSongs((prev) => {
+      const exists = prev.some((s) => s.id === song.id);
+
+      const updated = exists
+        ? prev.filter((s) => s.id !== song.id)
+        : [...prev, song];
+
+      localStorage.setItem(
+        "savedRecommendedSongs",
+        JSON.stringify(updated)
+      );
+
+      return updated;
+    });
+  };
+
+  if (isPending) {
     return (
       <div className="min-h-screen bg-custom font-sans selection:bg-cyan-300">
         <Navbar />
@@ -96,42 +130,46 @@ export default function SongsPage() {
   return (
     <div className="min-h-screen bg-custom font-sans selection:bg-cyan-300">
       <div className="fixed inset-0 -z-10 bg-custom" />
-        <Navbar />
+      <Navbar />
 
-        <main className="flex flex-col items-center justify-start px-6 py-12 min-h-[calc(100vh-80px)] relative overflow-hidden">
-          <div className="absolute top-20 left-10 w-40 h-40 bg-blue-300 rounded-full mix-blend-multiply filter blur-3xl opacity-50 pointer-events-none"></div>
-          <div className="absolute top-60 right-20 w-32 h-32 bg-cyan-200 rounded-full mix-blend-multiply filter blur-3xl opacity-60 pointer-events-none"></div>
+      <main className="relative flex min-h-[calc(100vh-80px)] flex-col items-center justify-start overflow-hidden px-6 py-12">
+        <div className="pointer-events-none absolute left-10 top-20 h-40 w-40 rounded-full bg-blue-300 opacity-50 mix-blend-multiply blur-3xl filter"></div>
+        <div className="pointer-events-none absolute right-20 top-60 h-32 w-32 rounded-full bg-cyan-200 opacity-60 mix-blend-multiply blur-3xl filter"></div>
 
-          <div className="text-center relative z-10 mb-12">
-            <h1 className="text-4xl md:text-5xl font-extrabold text-cyan-950 tracking-tight drop-shadow-sm mb-4">
-              Your Recommended Songs
-            </h1>
-            <p className="text-lg text-cyan-800 font-medium px-4">
-              A splash of new tunes selected just for you.
-            </p>
+        <div className="relative z-10 mb-12 text-center">
+          <h1 className="mb-4 text-4xl font-extrabold tracking-tight text-cyan-950 drop-shadow-sm md:text-5xl">
+            Your Recommended Songs
+          </h1>
+          <p className="px-4 text-lg font-medium text-cyan-800">
+            A splash of new tunes selected just for you.
+          </p>
+        </div>
+
+        {isLoading ? (
+          <div className="font-bold text-cyan-900 animate-pulse">
+            Finding your perfect tracks...
           </div>
-
-          {isLoading ? (
-            <div className="text-cyan-900 font-bold animate-pulse">
-              Finding your perfect tracks...
-            </div>
-          ) : error ? (
-            <div className="text-red-500 font-bold">{error}</div>
-          ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10 md:gap-14 justify-items-center w-full max-w-7xl relative z-10 pb-20">
-              {songs.map((song) => (
-                <Link
-                  href={song.url}
-                  key={song.id}
-                  className="transition-transform hover:scale-105 duration-300"
-                  target="_blank"
-                >
-                  <SongCard song={song} />
-                </Link>
-              ))}
-            </div>
-          )}
-        </main>
+        ) : error ? (
+          <div className="font-bold text-red-500">{error}</div>
+        ) : (
+          <div className="relative z-10 grid w-full max-w-7xl grid-cols-1 justify-items-center gap-10 pb-20 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:gap-14">
+            {songs.map((song) => (
+              <Link
+                href={song.url}
+                key={song.id}
+                className="transition-transform duration-300 hover:scale-105"
+                target="_blank"
+              >
+                <SongCard
+                  song={song}
+                  isSaved={savedSongs.some((s) => s.id === song.id)}
+                  onToggleSave={() => toggleSaveSong(song)}
+                />
+              </Link>
+            ))}
+          </div>
+        )}
+      </main>
     </div>
   );
 }
