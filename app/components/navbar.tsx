@@ -2,12 +2,45 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { authClient } from "@/app/lib/auth-client";
 
 export default function Navbar() {
   const { data: session } = authClient.useSession();
   const [menuOpen, setMenuOpen] = useState(false);
+
+    const [savedCount, setSavedCount] = useState(0);
+
+  useEffect(() => {
+    const loadSavedSongs = () => {
+      const saved = localStorage.getItem("savedRecommendedSongs");
+
+      if (!saved) {
+        setSavedCount(0);
+        return;
+      }
+
+      try {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed)) {
+          setSavedCount(parsed.length);
+        } else {
+          setSavedCount(0);
+        }
+      } catch (error) {
+        console.error("Failed to read saved songs:", error);
+        setSavedCount(0);
+      }
+    };
+
+    loadSavedSongs();
+
+    window.addEventListener("storage", loadSavedSongs);
+
+    return () => {
+      window.removeEventListener("storage", loadSavedSongs);
+    };
+  }, []);
 
   const navLinks = [
     { name: "Home", href: "/" },
@@ -48,6 +81,37 @@ export default function Navbar() {
                 {link.name}
               </Link>
             ))}
+
+            {session && (
+              <Link
+                href="/savedsongs"
+                className="relative ml-3 inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/80 border border-white shadow-md transition-all hover:scale-105 hover:bg-white"
+                aria-label="Saved songs"
+                title="Saved Songs"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className={`h-5 w-5 ${savedCount > 0 ? "text-red-500" : "text-cyan-700"}`}
+                  fill={savedCount > 0 ? "currentColor" : "none"}
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                  />
+                </svg>
+
+                {savedCount > 0 && (
+                  <span className="absolute -top-1 -right-1 rounded-full bg-red-500 px-1.5 py-[1px] text-[10px] font-bold text-white">
+                    {savedCount}
+                  </span>
+                )}
+              </Link>
+            )}
+
           </div>
 
             {/*DIVIDER */}
@@ -85,7 +149,8 @@ export default function Navbar() {
             className="md:hidden inline-flex items-center justify-center rounded-full p-2 text-cyan-900 hover:bg-cyan-100 transition-all"
             onClick={() => setMenuOpen((prev) => !prev)}
             aria-label="Toggle menu"
-            aria-expanded={menuOpen}
+            aria-expanded={menuOpen ? "true" : "false"}
+            aria-controls="mobile-menu"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -114,7 +179,7 @@ export default function Navbar() {
 
         {/* Mobile dropdown */}
         {menuOpen && (
-          <div className="md:hidden pb-4">
+          <div id="mobile-menu" className="md:hidden pb-4">
             <div className="flex flex-col gap-2 rounded-3xl bg-white/90 p-4 shadow-lg">
               {navLinks.map((link) => (
                 <Link
@@ -126,6 +191,39 @@ export default function Navbar() {
                   {link.name}
                 </Link>
               ))}
+
+                            {session && (
+                <Link
+                  href="/savedsongs"
+                  className="flex items-center justify-between rounded-2xl px-4 py-3 text-sm font-bold text-cyan-800 hover:bg-cyan-100 hover:text-cyan-950 transition-all"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  <span>Saved Songs</span>
+
+                  <span className="relative inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/80 border border-white shadow-sm">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className={`h-4 w-4 ${savedCount > 0 ? "text-red-500" : "text-cyan-700"}`}
+                      fill={savedCount > 0 ? "currentColor" : "none"}
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                      />
+                    </svg>
+
+                    {savedCount > 0 && (
+                      <span className="absolute -top-1 -right-1 rounded-full bg-red-500 px-1.5 py-[1px] text-[10px] font-bold text-white">
+                        {savedCount}
+                      </span>
+                    )}
+                  </span>
+                </Link>
+              )}
 
               {session ? (
                 <div className="flex items-center justify-between gap-3 pt-2">
