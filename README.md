@@ -78,6 +78,7 @@ app/
 ├── recommendedsongs/         # Song recommendations
 ├── quiz/                     # MBTI-style personality quiz (state machine pattern)
 ├── share/                    # Social sharing page
+├── savedsongs/               # Songs favorited page
 ├── feedback/                 # User feedback form
 ├── components/               # Shared UI components (Navbar, ArtistCard, SongCard)
 ├── lib/                      # Auth configuration (Better Auth + Spotify provider)
