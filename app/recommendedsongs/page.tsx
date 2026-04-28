@@ -6,7 +6,8 @@ import SongCard from "../components/songcard";
 import Navbar from "../components/navbar";
 import { Song } from "../types/song";
 import { authClient } from "@/app/lib/auth-client";
-import { getMbtiRecommendations } from "@/app/recommendedsongs/recommend";
+import { RecommendationContext } from "./strategy/RecommendationContext";
+import { MbtiStrategy } from "./strategy/MBTIStrategy";
 import Link from "next/link";
 
 export default function SongsPage() {
@@ -68,8 +69,11 @@ export default function SongsPage() {
           throw new Error("Could not retrieve Spotify access token.");
         }
 
-        const tracks = await getMbtiRecommendations(
-          quizResult.type,
+        const recommendationContext = new RecommendationContext(
+            new MbtiStrategy(quizResult.type),
+        );
+
+        const tracks = await recommendationContext.getRecommendations(
           tokenData.accessToken,
         );
 
